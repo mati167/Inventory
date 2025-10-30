@@ -1,4 +1,4 @@
-﻿using Peliculas.Core.DAO;
+﻿using Inventory.Core.DAO;
 using Peliculas.Core.Interfaces;
 using System;
 using System.Collections.Generic;

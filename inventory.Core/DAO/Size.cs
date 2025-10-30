@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Peliculas.Core.DAO;
+namespace Inventory.Core.DAO;
 
 public partial class Size
 {

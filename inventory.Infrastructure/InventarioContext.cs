@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Peliculas.Core.DAO;
+namespace Inventory.Core.DAO;
 
 public partial class InventarioContext : DbContext
 {

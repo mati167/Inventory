@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Peliculas.Core\Inventory.Core.csproj" />
+    <ProjectReference Include="..\inventory.Core\Inventory.Core.csproj" />
   </ItemGroup>
 
 </Project>
