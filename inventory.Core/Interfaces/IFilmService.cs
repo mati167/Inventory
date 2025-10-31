@@ -1,4 +1,5 @@
 ﻿using Inventory.Core.DAO;
+using Inventory.Core.DTOs.Film;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Peliculas.Core.Interfaces
 {
     public interface IFilmService
     {
-        List<Film> GetFilms();
+        List<FilmDto> GetFilms();
     }
 }

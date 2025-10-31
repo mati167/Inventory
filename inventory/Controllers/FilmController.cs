@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Inventory.Core.DTOs.Film;
+using Microsoft.AspNetCore.Mvc;
 using Peliculas.Core.Interfaces;
 using Peliculas.Core.Services;
+using System.Net;
 
 namespace peliculas.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class FilmController : Controller
     {
         private readonly ILogger _log;
@@ -16,7 +18,10 @@ namespace peliculas.Api.Controllers
             _filmService = filmService;
             _log = log;
         }
-        [HttpGet]
+
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<FilmDto>))]
+        //[ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(List<ErrorDetalle>))]
+        [HttpGet("GetFilms")]
         public IActionResult GetFilms()
         {
             return Ok(_filmService.GetFilms());

@@ -57,6 +57,7 @@ namespace Inventory.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new mangaConfiguration());
             modelBuilder.ApplyConfiguration(new PersonConfiguration());
             modelBuilder.ApplyConfiguration(new publisherConfiguration());
+            modelBuilder.ApplyConfiguration(new sizeConfiguration());
 
 
             OnModelCreatingPartial(modelBuilder);

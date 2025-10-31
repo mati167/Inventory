@@ -1,4 +1,6 @@
 ﻿using Inventory.Core.DAO;
+using Inventory.Core.DTOs.Film;
+using Inventory.Core.DTOs.General;
 using Inventory.Core.Interfaces;
 using Inventory.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -21,14 +23,28 @@ namespace Inventory.Infrastructure.Repositories
             _dbContext = dbContext;
             _logger = logger;
         }
-        public List<Film> GetFilmList()
+        public List<FilmDto> GetFilmList()
         {
             _logger.LogTrace($"Se obtuvieron los Films");
             return _dbContext.Films
                     .Include(f => f.Idcountries)
                     .Include(f => f.Idgenres)
-                    .Include(f => f.Idpeople)
-                    .Include(f => f.IdpeopleNavigation).OrderBy(f => f.FilmName).ToList();
+                    .Select(f => new FilmDto
+                    {
+                        Idfilm = f.Idfilm,
+                        FilmName = f.FilmName,
+                        Year = f.Year,
+                        Duration = f.Duration,
+                        Directed = f.Idpeople
+                        .Select(d => new idDescriptionDTO { Id = d.Idpersona, description = d.LastName + "," + d.Name })
+                        .ToList(),
+                        Countries = f.Idcountries
+                        .Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName })
+                        .ToList(),
+                        Genres = f.Idgenres
+                        .Select(g => new idDescriptionDTO { Id = g.Idgenre, description = g.Description ?? "S/D" })
+                        .ToList(),
+                    }).OrderBy(f => f.FilmName).ToList();
         }
     }
 }
