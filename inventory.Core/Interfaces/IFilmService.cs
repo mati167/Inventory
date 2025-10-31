@@ -13,5 +13,6 @@ namespace Peliculas.Core.Interfaces
         List<FilmDto> GetFilms();
         FilmDto GetFilmById(int id);
         FilmDto addFilm(CreateFilmDto dto);
+        FilmDto updateFilm(updateFilm dto);
     }
 }

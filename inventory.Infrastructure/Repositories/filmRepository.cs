@@ -113,5 +113,44 @@ namespace Inventory.Infrastructure.Repositories
                 Acted = film.idActed.Select(p => new idDescriptionDTO { Id = p.Idpersona, description = p.LastName + "," + p.Name }).ToList()
             };
         }
+
+        public FilmDto updateFilm(updateFilm dto)
+        {
+            var film = _dbContext.Films
+                       .Include(f => f.Idcountries)
+                       .Include(f => f.Idgenres)
+                       .Include(f => f.idDirected)
+                       .Include(f => f.idActed)
+                       .FirstOrDefault(f => f.Idfilm == dto.Idfilm);
+
+            if (film == null)
+                throw new Exception("No se encontro el film");
+
+            // Actualizar propiedades simples
+            film.FilmName = dto.FilmName;
+            film.Year = dto.Year;
+            film.Duration = dto.Duration;
+
+            // Actualizar relaciones N:N
+            film.Idcountries = _dbContext.Countries.Where(c => dto.CountryIds.Contains(c.Idcountry)).ToList();
+            film.Idgenres = _dbContext.Genres.Where(g => dto.GenreIds.Contains(g.Idgenre)).ToList();
+            film.idDirected = _dbContext.People.Where(p => dto.DirectedIds.Contains(p.Idpersona)).ToList();
+            film.idActed = _dbContext.People.Where(p => dto.ActedIds.Contains(p.Idpersona)).ToList();
+
+            _dbContext.SaveChanges();
+
+            // Devolver DTO actualizado
+            return new FilmDto
+            {
+                Idfilm = film.Idfilm,
+                FilmName = film.FilmName,
+                Year = film.Year,
+                Duration = film.Duration,
+                Countries = film.Idcountries.Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName }).ToList(),
+                Genres = film.Idgenres.Select(g => new idDescriptionDTO { Id = g.Idgenre, description = g.Description ?? "S/D" }).ToList(),
+                Directed = film.idDirected.Select(p => new idDescriptionDTO { Id = p.Idpersona, description = p.LastName + "," + p.Name }).ToList(),
+                Acted = film.idActed.Select(p => new idDescriptionDTO { Id = p.Idpersona, description = p.LastName + "," + p.Name }).ToList()
+            };
+        }
     }
 }

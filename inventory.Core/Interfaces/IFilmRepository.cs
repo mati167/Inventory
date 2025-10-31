@@ -13,5 +13,6 @@ namespace Inventory.Core.Interfaces
         List<FilmDto> GetFilmList();
         FilmDto GetFilmById(int id);
         FilmDto addFilm(CreateFilmDto dto);
+        FilmDto updateFilm(updateFilm dto);
     }
 }

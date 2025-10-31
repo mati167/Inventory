@@ -34,5 +34,10 @@ namespace Peliculas.Core.Services
         {
             return _filmRepository.addFilm(dto);
         }
+
+        public FilmDto updateFilm(updateFilm dto)
+        {
+            return _filmRepository.updateFilm(dto);
+        }
     }
 }

@@ -41,5 +41,12 @@ namespace peliculas.Api.Controllers
         {
             return Ok(_filmService.addFilm(dto));
         }
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(FilmDto))]
+        //[ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(List<ErrorDetalle>))]
+        [HttpPut("updateFilm")]
+        public IActionResult updateFilm(updateFilm dto)
+        {
+            return Ok(_filmService.updateFilm(dto));
+        }
     }
 }
