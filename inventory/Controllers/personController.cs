@@ -32,5 +32,19 @@ namespace Inventory.Api.Controllers
         {
             return Ok(_personService.GetPersonById(id));
         }
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(personDTO))]
+        //[ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(List<ErrorDetalle>))]
+        [HttpPost("addPerson")]
+        public IActionResult addPerson(CreatePersonDTO dto)
+        {
+            return Ok(_personService.addPerson(dto));
+        }
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(personDTO))]
+        //[ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(List<ErrorDetalle>))]
+        [HttpPut("updatePerson")]
+        public IActionResult updatePerson(updatePersonDTO dto)
+        {
+            return Ok(_personService.updatePerson(dto));
+        }
     }
 }
