@@ -1,16 +1,16 @@
 ﻿using Inventory.Core.Entities.DAO;
 using Inventory.Core.Entities.DTOs.General;
 using Inventory.Core.Entities.DTOs.Film;
-using Inventory.Core.Interfaces;
 using Inventory.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Peliculas.Core.Interfaces;
+using Peliculas.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Inventory.Core.Interfaces.Repository;
 
 namespace Inventory.Infrastructure.Repositories
 {
@@ -82,8 +82,8 @@ namespace Inventory.Infrastructure.Repositories
             // Traer las entidades relacionadas
             var countries = _dbContext.Countries.Where(c => dto.CountryIds.Contains(c.Idcountry)).ToList();
             var genres = _dbContext.Genres.Where(g => dto.GenreIds.Contains(g.Idgenre)).ToList();
-            var peopleDirected = _dbContext.People.Where(p => dto.DirectedIds.Contains(p.Idpersona)).ToList();
-            var peopleActed = _dbContext.People.Where(p => dto.ActedIds.Contains(p.Idpersona)).ToList();
+            var peopleDirected = _dbContext.Person.Where(p => dto.DirectedIds.Contains(p.Idpersona)).ToList();
+            var peopleActed = _dbContext.Person.Where(p => dto.ActedIds.Contains(p.Idpersona)).ToList();
 
             // Crear la nueva película
             var film = new Film
@@ -134,8 +134,8 @@ namespace Inventory.Infrastructure.Repositories
             // Actualizar relaciones N:N
             film.Idcountries = _dbContext.Countries.Where(c => dto.CountryIds.Contains(c.Idcountry)).ToList();
             film.Idgenres = _dbContext.Genres.Where(g => dto.GenreIds.Contains(g.Idgenre)).ToList();
-            film.idDirected = _dbContext.People.Where(p => dto.DirectedIds.Contains(p.Idpersona)).ToList();
-            film.idActed = _dbContext.People.Where(p => dto.ActedIds.Contains(p.Idpersona)).ToList();
+            film.idDirected = _dbContext.Person.Where(p => dto.DirectedIds.Contains(p.Idpersona)).ToList();
+            film.idActed = _dbContext.Person.Where(p => dto.ActedIds.Contains(p.Idpersona)).ToList();
 
             _dbContext.SaveChanges();
 

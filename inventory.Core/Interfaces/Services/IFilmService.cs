@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Peliculas.Core.Interfaces
+namespace Inventory.Core.Interfaces.Services
 {
     public interface IFilmService
     {

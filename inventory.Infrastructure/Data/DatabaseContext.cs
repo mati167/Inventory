@@ -39,7 +39,7 @@ namespace Inventory.Infrastructure.Data
 
         public virtual DbSet<Manga> Mangas { get; set; }
 
-        public virtual DbSet<Person> People { get; set; }
+        public virtual DbSet<Person> Person { get; set; }
 
         public virtual DbSet<Publisher> Publishers { get; set; }
 

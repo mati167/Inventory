@@ -1,14 +1,14 @@
-using Inventory.Core.Interfaces;
 using Inventory.Infrastructure.Repositories;
 using NLog;
 using NLog.Web;
-using Peliculas.Core.Interfaces;
 using Peliculas.Core.Services;
 using System.Diagnostics;
 using ILogger = NLog.ILogger;
 using Inventory.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Inventory.Core.Interfaces.Services;
+using Inventory.Core.Interfaces.Repository;
 
 
 ILogger _log = LogManager.GetCurrentClassLogger();

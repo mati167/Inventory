@@ -1,6 +1,9 @@
 ﻿using Inventory.Core.Entities.DTOs.Film;
 using Inventory.Core.Entities.DTOs.Person;
-using Inventory.Core.Interfaces;
+using Inventory.Core.Interfaces.Repository;
+using Inventory.Core.Interfaces.Services;
+using Microsoft.Extensions.Logging;
+using Peliculas.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +14,14 @@ namespace Inventory.Core.Services
 {
     public class personService : IpersonService
     {
+        private readonly IpersonService _personRepository;
+        private readonly ILogger<personService> _log;
+
+        public personService(IpersonService personRepository, ILogger<personService> logger)
+        {
+            _personRepository = personRepository;
+            _log = logger;
+        }
         public personDTO addPerson(CreateFilmDto dto)
         {
             throw new NotImplementedException();
@@ -23,7 +34,7 @@ namespace Inventory.Core.Services
 
         public List<personDTO> GetPersonList()
         {
-            throw new NotImplementedException();
+            return _personRepository.GetPersonList();
         }
 
         public personDTO updatePerson(updateFilm dto)

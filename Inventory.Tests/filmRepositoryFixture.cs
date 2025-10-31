@@ -52,7 +52,7 @@ namespace Inventory.Tests
 
             context.Countries.Add(country);
             context.Genres.Add(genre);
-            context.People.AddRange(director, actor);
+            context.Person.AddRange(director, actor);
             context.Films.Add(film);
             context.SaveChanges();
         }

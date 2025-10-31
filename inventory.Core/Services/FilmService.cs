@@ -1,8 +1,8 @@
 ﻿using Inventory.Core.Entities.DAO;
 using Inventory.Core.Entities.DTOs.Film;
-using Inventory.Core.Interfaces;
+using Inventory.Core.Interfaces.Repository;
+using Inventory.Core.Interfaces.Services;
 using Microsoft.Extensions.Logging;
-using Peliculas.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,6 @@
 ﻿using Inventory.Core.Entities.DTOs.Film;
+using Inventory.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
-using Peliculas.Core.Interfaces;
 using Peliculas.Core.Services;
 using System.Net;
 
