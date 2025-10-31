@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using Inventory.Core.DTOs.Film;
+using Inventory.Core.Entities.DTOs.Film;
 using System.Collections.Generic;
 using System.Linq;
 using System;

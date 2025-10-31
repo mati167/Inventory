@@ -1,5 +1,5 @@
-﻿using Inventory.Core.DAO;
-using Inventory.Core.DTOs.Film;
+﻿using Inventory.Core.Entities.DAO;
+using Inventory.Core.Entities.DTOs.Film;
 using Inventory.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 using Peliculas.Core.Interfaces;

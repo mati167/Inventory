@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
 using Inventory.Infrastructure.Data;
 using Inventory.Infrastructure.Repositories;
-using Inventory.Core.DAO;
 using System.Collections.Generic;
+using Inventory.Core.Entities.DAO;
 
 namespace Inventory.Tests
 {

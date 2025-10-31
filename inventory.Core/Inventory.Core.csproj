@@ -7,9 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Enumerations\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="DAO\" />
+    <Compile Remove="Enumerations\**" />
+    <Compile Remove="Exceptions\**" />
+    <EmbeddedResource Remove="Enumerations\**" />
+    <EmbeddedResource Remove="Exceptions\**" />
+    <None Remove="Enumerations\**" />
+    <None Remove="Exceptions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\DAO\" />
   </ItemGroup>
 
   <ItemGroup>

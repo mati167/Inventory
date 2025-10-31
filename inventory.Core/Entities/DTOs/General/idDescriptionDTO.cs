@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Inventory.Core.DTOs.General
+namespace Inventory.Core.Entities.DTOs.General
 {
     public class idDescriptionDTO
     {

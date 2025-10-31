@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Inventory.Core.DTOs.Film
+namespace Inventory.Core.Entities.DTOs.Film
 {
-    public class updateFilm
+    public class CreateFilmDto
     {
-        public int Idfilm { get; set; }
         public string FilmName { get; set; } = null!;
         public short? Year { get; set; }
         public TimeOnly? Duration { get; set; }
@@ -18,4 +17,5 @@ namespace Inventory.Core.DTOs.Film
         public List<int> DirectedIds { get; set; } = new();
         public List<int> ActedIds { get; set; } = new();
     }
+
 }

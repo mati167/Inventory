@@ -1,4 +1,4 @@
-﻿using Inventory.Core.DAO;
+﻿using Inventory.Core.Entities.DAO;
 using Inventory.Infrastructure.Data.Configurations.FILMS;
 using Inventory.Infrastructure.Data.Configurations.GENERAL;
 using Inventory.Infrastructure.Data.Configurations.LIBROS.COMIC;

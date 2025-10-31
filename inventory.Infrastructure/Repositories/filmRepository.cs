@@ -1,6 +1,6 @@
-﻿using Inventory.Core.DAO;
-using Inventory.Core.DTOs.Film;
-using Inventory.Core.DTOs.General;
+﻿using Inventory.Core.Entities.DAO;
+using Inventory.Core.Entities.DTOs.General;
+using Inventory.Core.Entities.DTOs.Film;
 using Inventory.Core.Interfaces;
 using Inventory.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Inventory.Core.DAO;
+namespace Inventory.Core.Entities.DAO;
 
 public partial class Size
 {

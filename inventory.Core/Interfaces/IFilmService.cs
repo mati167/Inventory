@@ -1,5 +1,5 @@
-﻿using Inventory.Core.DAO;
-using Inventory.Core.DTOs.Film;
+﻿using Inventory.Core.Entities.DAO;
+using Inventory.Core.Entities.DTOs.Film;
 using System;
 using System.Collections.Generic;
 using System.Linq;

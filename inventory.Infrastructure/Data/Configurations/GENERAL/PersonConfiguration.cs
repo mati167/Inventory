@@ -1,4 +1,4 @@
-﻿using Inventory.Core.DAO;
+﻿using Inventory.Core.Entities.DAO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
