@@ -12,7 +12,7 @@ namespace Inventory.Core.Interfaces.Repository
     {
         List<personDTO> GetPersonList();
         personDTO getPersonById(int id);
-        personDTO addPerson(CreateFilmDto dto);
-        personDTO updatePerson(updateFilm dto);
+        personDTO addPerson(CreatePersonDTO dto);
+        personDTO updatePerson(updatePersonDTO dto);
     }
 }

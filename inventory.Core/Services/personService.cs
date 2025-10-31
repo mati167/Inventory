@@ -14,22 +14,22 @@ namespace Inventory.Core.Services
 {
     public class personService : IpersonService
     {
-        private readonly IpersonService _personRepository;
+        private readonly IpersonRepository _personRepository;
         private readonly ILogger<personService> _log;
 
-        public personService(IpersonService personRepository, ILogger<personService> logger)
+        public personService(IpersonRepository personRepository, ILogger<personService> logger)
         {
             _personRepository = personRepository;
             _log = logger;
         }
-        public personDTO addPerson(CreateFilmDto dto)
+        public personDTO addPerson(CreatePersonDTO dto)
         {
             throw new NotImplementedException();
         }
 
         public personDTO GetPersonById(int id)
         {
-            throw new NotImplementedException();
+            return _personRepository.getPersonById(id);
         }
 
         public List<personDTO> GetPersonList()
@@ -37,7 +37,7 @@ namespace Inventory.Core.Services
             return _personRepository.GetPersonList();
         }
 
-        public personDTO updatePerson(updateFilm dto)
+        public personDTO updatePerson(updatePersonDTO dto)
         {
             throw new NotImplementedException();
         }

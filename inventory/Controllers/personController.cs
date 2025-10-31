@@ -1,4 +1,5 @@
 ﻿using Inventory.Core.Entities.DTOs.Film;
+using Inventory.Core.Entities.DTOs.Person;
 using Inventory.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Peliculas.Core.Services;
@@ -17,12 +18,19 @@ namespace Inventory.Api.Controllers
             _personService = personService;
             _log = log;
         }
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<FilmDto>))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<personDTO>))]
         //[ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(List<ErrorDetalle>))]
         [HttpGet("GetPersonList")]
         public IActionResult GetPersonList()
         {
             return Ok(_personService.GetPersonList());
+        }
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<personDTO>))]
+        //[ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(List<ErrorDetalle>))]
+        [HttpGet("GetPersonById")]
+        public IActionResult GetPersonById(int id)
+        {
+            return Ok(_personService.GetPersonById(id));
         }
     }
 }

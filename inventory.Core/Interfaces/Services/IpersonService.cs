@@ -12,7 +12,7 @@ namespace Inventory.Core.Interfaces.Services
     {
         List<personDTO> GetPersonList();
         personDTO GetPersonById(int id);
-        personDTO addPerson(CreateFilmDto dto);
-        personDTO updatePerson(updateFilm dto);
+        personDTO addPerson(CreatePersonDTO dto);
+        personDTO updatePerson(updatePersonDTO dto);
     }
 }

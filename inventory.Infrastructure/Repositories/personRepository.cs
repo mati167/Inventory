@@ -24,9 +24,30 @@ namespace Inventory.Infrastructure.Repositories
             _logger = logger;
         }
 
-        public personDTO addPerson(CreateFilmDto dto)
+        public personDTO addPerson(CreatePersonDTO dto)
         {
-            throw new NotImplementedException();
+            // Traer las entidades relacionadas
+            var countries = _dbContext.Countries.Where(c => dto.Idcountries.Contains(c.Idcountry)).ToList();
+
+            // Crear la nueva persona
+            var person = new Person
+            {
+                Name = dto.Name,
+                LastName = dto.LastName,
+                Idcountries = countries
+            };
+
+            _dbContext.Person.Add(person);
+            _dbContext.SaveChanges(); // EF Core guarda Film y llena automáticamente las tablas intermedias
+
+            // Opcional: devolver personDTO
+            return new personDTO
+            {
+                Idpersona = person.Idpersona,
+                Name = person.Name,
+                LastName = person.LastName,
+                Countries = person.Idcountries.Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName }).ToList(),
+            };
         }
 
         public personDTO getPersonById(int id)
@@ -67,9 +88,32 @@ namespace Inventory.Infrastructure.Repositories
                     }).OrderBy(p => p.LastName).ToList();
         }
 
-        public personDTO updatePerson(updateFilm dto)
+        public personDTO updatePerson(updatePersonDTO dto)
         {
-            throw new NotImplementedException();
+            var person = _dbContext.Person
+           .Include(p => p.Idcountries)
+           .FirstOrDefault(p => p.Idpersona == dto.Idpersona);
+
+            if (person == null)
+                throw new Exception("No se encontro la persona");
+
+            // Actualizar propiedades simples
+            person.Name = dto.Name;
+            person.LastName = dto.LastName;
+
+            // Actualizar relaciones N:N
+            person.Idcountries = _dbContext.Countries.Where(c => dto.Idcountries.Contains(c.Idcountry)).ToList();
+
+            _dbContext.SaveChanges();
+
+            // Devolver DTO actualizado
+            return new personDTO
+            {
+                Idpersona = person.Idpersona,
+                Name = person.Name,
+                LastName = person.LastName,
+                Countries = person.Idcountries.Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName }).ToList(),
+            };
         }
     }
 }
