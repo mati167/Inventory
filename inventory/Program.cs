@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Inventory.Core.Interfaces.Services;
 using Inventory.Core.Interfaces.Repository;
+using Inventory.Core.Services;
 
 
 ILogger _log = LogManager.GetCurrentClassLogger();
@@ -34,6 +35,8 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 
 builder.Services.AddTransient<IFilmService, FilmService>();
 builder.Services.AddTransient<IFilmRepository, filmRepository>();
+builder.Services.AddTransient<IpersonService, personService>();
+builder.Services.AddTransient<IpersonRepository, personRepository>();
 
 
 var app = builder.Build();
