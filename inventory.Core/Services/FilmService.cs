@@ -30,5 +30,9 @@ namespace Peliculas.Core.Services
         {
             return _filmRepository.GetFilmById(id);
         }
+        public FilmDto addFilm(CreateFilmDto dto)
+        {
+            return _filmRepository.addFilm(dto);
+        }
     }
 }

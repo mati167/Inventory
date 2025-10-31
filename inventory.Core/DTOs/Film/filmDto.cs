@@ -14,6 +14,7 @@ namespace Inventory.Core.DTOs.Film
         public short? Year { get; set; }
         public TimeOnly? Duration { get; set; }
         public List<idDescriptionDTO> Directed { get; set; } = new();
+        public List<idDescriptionDTO> Acted { get; set; } = new();
         public List<idDescriptionDTO> Countries { get; set; } = new();
         public List<idDescriptionDTO> Genres { get; set; } = new();
     }

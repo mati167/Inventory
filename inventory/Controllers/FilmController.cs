@@ -34,5 +34,12 @@ namespace peliculas.Api.Controllers
         {
             return Ok(_filmService.GetFilmById(id));
         }
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(FilmDto))]
+        //[ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(List<ErrorDetalle>))]
+        [HttpPost("addFilm")]
+        public IActionResult addFilm(CreateFilmDto dto)
+        {
+            return Ok(_filmService.addFilm(dto));
+        }
     }
 }

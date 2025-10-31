@@ -60,7 +60,7 @@ namespace Inventory.Infrastructure.Data.Configurations.FILMS
                         j.IndexerProperty<int>("Idgenre").HasColumnName("IDGenre");
                     });
 
-            entity.HasMany(d => d.Idpeople).WithMany(p => p.Idfilms)
+            entity.HasMany(d => d.idDirected).WithMany(p => p.Idfilms)
                 .UsingEntity<Dictionary<string, object>>(
                     "Directed",
                     r => r.HasOne<Person>().WithMany()
@@ -79,7 +79,7 @@ namespace Inventory.Infrastructure.Data.Configurations.FILMS
                         j.IndexerProperty<int>("Idperson").HasColumnName("IDPerson");
                     });
 
-            entity.HasMany(d => d.IdpeopleNavigation).WithMany(p => p.IdfilmsNavigation)
+            entity.HasMany(d => d.idActed).WithMany(p => p.IdfilmsNavigation)
                 .UsingEntity<Dictionary<string, object>>(
                     "Played",
                     r => r.HasOne<Person>().WithMany()

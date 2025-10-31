@@ -35,7 +35,7 @@ namespace Inventory.Infrastructure.Repositories
                         FilmName = f.FilmName,
                         Year = f.Year,
                         Duration = f.Duration,
-                        Directed = f.Idpeople
+                        Directed = f.idDirected
                         .Select(d => new idDescriptionDTO { Id = d.Idpersona, description = d.LastName + "," + d.Name })
                         .ToList(),
                         Countries = f.Idcountries
@@ -59,7 +59,7 @@ namespace Inventory.Infrastructure.Repositories
                        FilmName = f.FilmName,
                        Year = f.Year,
                        Duration = f.Duration,
-                       Directed = f.Idpeople
+                       Directed = f.idDirected
                        .Select(d => new idDescriptionDTO { Id = d.Idpersona, description = d.LastName + "," + d.Name })
                        .ToList(),
                        Countries = f.Idcountries
@@ -75,6 +75,43 @@ namespace Inventory.Infrastructure.Repositories
             }
             return film;
 
+        }
+
+        public FilmDto addFilm(CreateFilmDto dto)
+        {
+            // Traer las entidades relacionadas
+            var countries = _dbContext.Countries.Where(c => dto.CountryIds.Contains(c.Idcountry)).ToList();
+            var genres = _dbContext.Genres.Where(g => dto.GenreIds.Contains(g.Idgenre)).ToList();
+            var peopleDirected = _dbContext.People.Where(p => dto.DirectedIds.Contains(p.Idpersona)).ToList();
+            var peopleActed = _dbContext.People.Where(p => dto.ActedIds.Contains(p.Idpersona)).ToList();
+
+            // Crear la nueva película
+            var film = new Film
+            {
+                FilmName = dto.FilmName,
+                Year = dto.Year,
+                Duration = dto.Duration,
+                Idcountries = countries,
+                Idgenres = genres,
+                idDirected = peopleDirected,
+                idActed = peopleActed
+            };
+
+            _dbContext.Films.Add(film);
+            _dbContext.SaveChanges(); // EF Core guarda Film y llena automáticamente las tablas intermedias
+
+            // Opcional: devolver FilmDto
+            return new FilmDto
+            {
+                Idfilm = film.Idfilm,
+                FilmName = film.FilmName,
+                Year = film.Year,
+                Duration = film.Duration,
+                Countries = film.Idcountries.Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName }).ToList(),
+                Genres = film.Idgenres.Select(g => new idDescriptionDTO { Id = g.Idgenre, description = g.Description ?? "S/D" }).ToList(),
+                Directed = film.idDirected.Select(p => new idDescriptionDTO { Id = p.Idpersona, description = p.LastName + "," + p.Name }).ToList(),
+                Acted = film.idActed.Select(p => new idDescriptionDTO { Id = p.Idpersona, description = p.LastName + "," + p.Name }).ToList()
+            };
         }
     }
 }

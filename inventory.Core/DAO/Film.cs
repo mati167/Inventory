@@ -17,7 +17,7 @@ public partial class Film
 
     public virtual ICollection<Genre> Idgenres { get; set; } = new List<Genre>();
 
-    public virtual ICollection<Person> Idpeople { get; set; } = new List<Person>();
+    public virtual ICollection<Person> idDirected { get; set; } = new List<Person>();
 
-    public virtual ICollection<Person> IdpeopleNavigation { get; set; } = new List<Person>();
+    public virtual ICollection<Person> idActed { get; set; } = new List<Person>();
 }
