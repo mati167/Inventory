@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\inventory.Infrastructure\Inventory.Infrastructure.csproj" />
+    <ProjectReference Include="..\Inventory.Tests\Inventory.Tests.csproj" />
   </ItemGroup>
 
 </Project>

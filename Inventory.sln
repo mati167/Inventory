@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.Core", "inventory
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.Infrastructure", "inventory.Infrastructure\Inventory.Infrastructure.csproj", "{DB286F26-8095-4C4B-876E-B1D98ECEC385}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Tests", "Inventory.Tests\Inventory.Tests.csproj", "{0A514531-D1D7-49F2-98D8-FE8F358C6BB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DB286F26-8095-4C4B-876E-B1D98ECEC385}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB286F26-8095-4C4B-876E-B1D98ECEC385}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB286F26-8095-4C4B-876E-B1D98ECEC385}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A514531-D1D7-49F2-98D8-FE8F358C6BB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A514531-D1D7-49F2-98D8-FE8F358C6BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A514531-D1D7-49F2-98D8-FE8F358C6BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A514531-D1D7-49F2-98D8-FE8F358C6BB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
