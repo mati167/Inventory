@@ -11,5 +11,6 @@ namespace Inventory.Core.Interfaces
     public interface IFilmRepository
     {
         List<FilmDto> GetFilmList();
+        FilmDto GetFilmById(int id);
     }
 }

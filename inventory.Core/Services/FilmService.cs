@@ -25,5 +25,10 @@ namespace Peliculas.Core.Services
         {
             return _filmRepository.GetFilmList();
         }
+
+        public FilmDto GetFilmById(int id)
+        {
+            return _filmRepository.GetFilmById(id);
+        }
     }
 }

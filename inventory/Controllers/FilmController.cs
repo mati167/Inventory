@@ -26,5 +26,13 @@ namespace peliculas.Api.Controllers
         {
             return Ok(_filmService.GetFilms());
         }
+
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(FilmDto))]
+        //[ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(List<ErrorDetalle>))]
+        [HttpGet("GetFilmById")]
+        public IActionResult GetFilmById(int id)
+        {
+            return Ok(_filmService.GetFilmById(id));
+        }
     }
 }

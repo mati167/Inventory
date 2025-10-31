@@ -11,5 +11,6 @@ namespace Peliculas.Core.Interfaces
     public interface IFilmService
     {
         List<FilmDto> GetFilms();
+        FilmDto GetFilmById(int id);
     }
 }
