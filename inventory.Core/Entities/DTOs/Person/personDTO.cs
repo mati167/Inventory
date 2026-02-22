@@ -15,5 +15,6 @@ namespace Inventory.Core.Entities.DTOs.Person
 
         public string? LastName { get; set; }
         public List<idDescriptionDTO> Countries { get; set; } = new();
+        public int TotalFilm { get; set; }
     }
 }

@@ -47,6 +47,7 @@ namespace Inventory.Infrastructure.Repositories
                 Name = person.Name,
                 LastName = person.LastName,
                 Countries = person.Idcountries.Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName }).ToList(),
+                TotalFilm = 0
             };
         }
 
@@ -55,6 +56,8 @@ namespace Inventory.Infrastructure.Repositories
             _logger.LogTrace($"Se obtuvieron los Films");
             var person =  _dbContext.Person
                     .Include(p => p.Idcountries)
+                    .Include(p => p.Idfilms)
+                    .Include(p => p.IdfilmsNavigation)
                     .Where(p => p.Idpersona == id)
                     .Select(p => new personDTO
                     {
@@ -63,7 +66,8 @@ namespace Inventory.Infrastructure.Repositories
                         LastName = p.LastName,
                         Countries = p.Idcountries
                         .Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName })
-                        .ToList()
+                        .ToList(),
+                        TotalFilm = (p.Idfilms.Count + p.IdfilmsNavigation.Count)
                     }).FirstOrDefault();
             if (person == null)
             {
@@ -77,6 +81,8 @@ namespace Inventory.Infrastructure.Repositories
             _logger.LogTrace($"Se obtuvieron los Films");
             return _dbContext.Person
                     .Include(p => p.Idcountries)
+                    .Include(p => p.Idfilms)
+                    .Include(p => p.IdfilmsNavigation)
                     .Select(p => new personDTO
                     {
                         Idpersona = p.Idpersona,
@@ -84,7 +90,8 @@ namespace Inventory.Infrastructure.Repositories
                         LastName = p.LastName,
                         Countries = p.Idcountries
                         .Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName })
-                        .ToList()
+                        .ToList(),
+                        TotalFilm = (p.Idfilms.Count + p.IdfilmsNavigation.Count)
                     }).OrderBy(p => p.LastName).ToList();
         }
 
@@ -92,6 +99,8 @@ namespace Inventory.Infrastructure.Repositories
         {
             var person = _dbContext.Person
            .Include(p => p.Idcountries)
+           .Include(p => p.Idfilms)
+           .Include(p => p.IdfilmsNavigation)
            .FirstOrDefault(p => p.Idpersona == dto.Idpersona);
 
             if (person == null)
@@ -113,6 +122,7 @@ namespace Inventory.Infrastructure.Repositories
                 Name = person.Name,
                 LastName = person.LastName,
                 Countries = person.Idcountries.Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName }).ToList(),
+                TotalFilm = (person.Idfilms.Count + person.IdfilmsNavigation.Count)
             };
         }
     }

@@ -11,71 +11,103 @@ using Inventory.Core.Interfaces.Services;
 using Inventory.Core.Interfaces.Repository;
 using Inventory.Core.Services;
 
-
-ILogger _log = LogManager.GetCurrentClassLogger();
-
-var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers()
-       .AddJsonOptions(options =>
-       {
-           options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-           options.JsonSerializerOptions.WriteIndented = true; // opcional, para legibilidad
-       });
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-
-builder.Services.AddDbContext<DatabaseContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddTransient<IFilmService, FilmService>();
-builder.Services.AddTransient<IFilmRepository, filmRepository>();
-builder.Services.AddTransient<IpersonService, personService>();
-builder.Services.AddTransient<IpersonRepository, personRepository>();
-
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Crear carpeta de logs si no existe
+string logPath = @"C:\LOGS";
+if (!Directory.Exists(logPath))
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    try
+    {
+        Directory.CreateDirectory(logPath);
+        Console.WriteLine($"✅ Carpeta de logs creada: {logPath}");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"⚠️ No se pudo crear la carpeta de logs: {ex.Message}");
+    }
 }
 
+var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
 
-//var foldernamePublish = Directory.GetCurrentDirectory().Substring(Directory.GetCurrentDirectory().LastIndexOf('\\') + 1);
+try
+{
+    var builder = WebApplication.CreateBuilder(args);
 
+    // Add NLog to DI
+    builder.Logging.ClearProviders();
+    builder.Host.UseNLog();
 
-//if (Debugger.IsAttached)
-//{
-//    logger.Info(foldernamePublish);
-//    app.UseSwaggerUI(c =>
-//    {
-//        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Arquetipo API V1");
-//        c.DefaultModelsExpandDepth(-1);
-//    });
-//}
-//else
-//{
-//    logger.Info(foldernamePublish);
-//    app.UseSwaggerUI(c =>
-//    {
-//        c.SwaggerEndpoint($"/{foldernamePublish}/swagger/v1/swagger.json", $"{foldernamePublish} V1");
-//        c.DefaultModelsExpandDepth(-1);
-//    });
-//}
+    // Add services to the container.
+    builder.Services.AddControllers()
+           .AddJsonOptions(options =>
+           {
+               options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+               options.JsonSerializerOptions.WriteIndented = true;
+           });
 
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
-app.UseHttpsRedirection();
+    builder.Services.AddDbContext<DatabaseContext>(options =>
+        options.UseSqlServer(
+            builder.Configuration.GetConnectionString("DefaultConnection"),
+            sqlServerOptionsAction: sqlOptions =>
+            {
+                sqlOptions.EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: TimeSpan.FromSeconds(10),
+                    errorNumbersToAdd: null);
+            }));
 
-app.UseAuthorization();
+    builder.Services.AddTransient<IFilmService, FilmService>();
+    builder.Services.AddTransient<IFilmRepository, filmRepository>();
+    builder.Services.AddTransient<IpersonService, personService>();
+    builder.Services.AddTransient<IpersonRepository, personRepository>();
+    builder.Services.AddTransient<ICountryService, countryService>();
+    builder.Services.AddTransient<ICountryRepository, countryRepository>();
 
-app.MapControllers();
+    var app = builder.Build();
 
-app.Run();
+    if (app.Environment.IsDevelopment())
+    {
+    }
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
+    var foldernamePublish = Directory.GetCurrentDirectory().Substring(Directory.GetCurrentDirectory().LastIndexOf('\\') + 1);
+
+    logger.Info($"═══════════════════════════════════════════════════════");
+    logger.Info($"🚀 Aplicación iniciada: {foldernamePublish}");
+    logger.Info($"📁 Carpeta de logs: {logPath}");
+    logger.Info($"🔗 URL: http://localhost:4351/swagger/index.html");
+    logger.Info($"═══════════════════════════════════════════════════════");
+
+    if (Debugger.IsAttached)
+    {
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Arquetipo API V1");
+            c.DefaultModelsExpandDepth(-1);
+        });
+    }
+    else
+    {
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint($"/{foldernamePublish}/swagger/v1/swagger.json", $"{foldernamePublish} V1");
+            c.DefaultModelsExpandDepth(-1);
+        });
+    }
+
+    app.UseAuthorization();
+    app.MapControllers();
+    app.Run();
+}
+catch (Exception ex)
+{
+    logger.Error(ex, "❌ Se produjo un error durante la inicialización de la aplicación");
+    throw;
+}
+finally
+{
+    NLog.LogManager.Shutdown();
+}
