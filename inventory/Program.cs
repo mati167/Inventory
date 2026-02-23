@@ -64,6 +64,8 @@ try
     builder.Services.AddTransient<IpersonRepository, personRepository>();
     builder.Services.AddTransient<ICountryService, countryService>();
     builder.Services.AddTransient<ICountryRepository, countryRepository>();
+    builder.Services.AddTransient<IGenreService, genreService>();
+    builder.Services.AddTransient<IGenreRepository, genreRepository>();
 
     var app = builder.Build();
 
