@@ -4,7 +4,7 @@ WORKDIR /src
 
 # Copiar archivos de proyecto y restaurar dependencias
 COPY ["Inventory.Api.csproj", "./"]
-RUN dotnet restore "./Inventory.Api.csproj"
+RUN dotnet restore "./inventory/Inventory.Api.csproj"
 
 # Copiar el resto del código y publicar
 COPY . .
