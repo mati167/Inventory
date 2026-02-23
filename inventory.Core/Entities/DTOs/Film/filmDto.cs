@@ -13,6 +13,7 @@ namespace Inventory.Core.Entities.DTOs.Film
         public string FilmName { get; set; } = null!;
         public short? Year { get; set; }
         public TimeOnly? Duration { get; set; }
+        public string? imdbID { get; set; }
         public List<idDescriptionDTO> Directed { get; set; } = new();
         public List<idDescriptionDTO> Acted { get; set; } = new();
         public List<idDescriptionDTO> Countries { get; set; } = new();

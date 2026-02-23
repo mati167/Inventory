@@ -22,6 +22,10 @@ namespace Inventory.Infrastructure.Data.Configurations.FILMS
                 .HasMaxLength(45)
                 .IsUnicode(false);
 
+            entity.Property(e => e.imdbId)
+    .HasMaxLength(100)
+    .IsUnicode(false);
+
             entity.HasMany(d => d.Idcountries).WithMany(p => p.Idfilms)
                 .UsingEntity<Dictionary<string, object>>(
                     "FilmCountry",

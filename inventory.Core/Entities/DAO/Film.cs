@@ -13,6 +13,8 @@ public partial class Film
 
     public TimeOnly? Duration { get; set; }
 
+    public string? imdbId { get; set; }
+
     public virtual ICollection<Country> Idcountries { get; set; } = new List<Country>();
 
     public virtual ICollection<Genre> Idgenres { get; set; } = new List<Genre>();

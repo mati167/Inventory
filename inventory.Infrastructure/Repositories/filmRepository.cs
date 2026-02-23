@@ -35,6 +35,7 @@ namespace Inventory.Infrastructure.Repositories
                         FilmName = f.FilmName,
                         Year = f.Year,
                         Duration = f.Duration,
+                        imdbID = f.imdbId,
                         Directed = f.idDirected
                         .Select(d => new idDescriptionDTO { Id = d.Idpersona, description = d.LastName + "," + d.Name })
                         .ToList(),
@@ -59,6 +60,7 @@ namespace Inventory.Infrastructure.Repositories
                        FilmName = f.FilmName,
                        Year = f.Year,
                        Duration = f.Duration,
+                       imdbID = f.imdbId,
                        Directed = f.idDirected
                        .Select(d => new idDescriptionDTO { Id = d.Idpersona, description = d.LastName + "," + d.Name })
                        .ToList(),
@@ -91,6 +93,7 @@ namespace Inventory.Infrastructure.Repositories
                 FilmName = dto.FilmName,
                 Year = dto.Year,
                 Duration = dto.Duration,
+                imdbId = dto.imdbID,
                 Idcountries = countries,
                 Idgenres = genres,
                 idDirected = peopleDirected,
@@ -107,6 +110,7 @@ namespace Inventory.Infrastructure.Repositories
                 FilmName = film.FilmName,
                 Year = film.Year,
                 Duration = film.Duration,
+                imdbID = film.imdbId,
                 Countries = film.Idcountries.Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName }).ToList(),
                 Genres = film.Idgenres.Select(g => new idDescriptionDTO { Id = g.Idgenre, description = g.Description ?? "S/D" }).ToList(),
                 Directed = film.idDirected.Select(p => new idDescriptionDTO { Id = p.Idpersona, description = p.LastName + "," + p.Name }).ToList(),
@@ -130,6 +134,7 @@ namespace Inventory.Infrastructure.Repositories
             film.FilmName = dto.FilmName;
             film.Year = dto.Year;
             film.Duration = dto.Duration;
+            film.imdbId = dto.imdbID;
 
             // Actualizar relaciones N:N
             film.Idcountries = _dbContext.Countries.Where(c => dto.CountryIds.Contains(c.Idcountry)).ToList();
@@ -146,6 +151,7 @@ namespace Inventory.Infrastructure.Repositories
                 FilmName = film.FilmName,
                 Year = film.Year,
                 Duration = film.Duration,
+                imdbID = film.imdbId,
                 Countries = film.Idcountries.Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName }).ToList(),
                 Genres = film.Idgenres.Select(g => new idDescriptionDTO { Id = g.Idgenre, description = g.Description ?? "S/D" }).ToList(),
                 Directed = film.idDirected.Select(p => new idDescriptionDTO { Id = p.Idpersona, description = p.LastName + "," + p.Name }).ToList(),

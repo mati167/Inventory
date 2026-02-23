@@ -67,6 +67,9 @@ try
     builder.Services.AddTransient<IGenreService, genreService>();
     builder.Services.AddTransient<IGenreRepository, genreRepository>();
 
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
     var app = builder.Build();
 
     if (app.Environment.IsDevelopment())
