@@ -29,6 +29,8 @@ namespace Inventory.Infrastructure.Repositories
             return _dbContext.Films
                     .Include(f => f.idcountries)
                     .Include(f => f.idgenres)
+                    .Include(f => f.iddirected)
+                    .AsSplitQuery()
                     .Select(f => new FilmDto
                     {
                         Idfilm = f.idfilm,
@@ -44,8 +46,10 @@ namespace Inventory.Infrastructure.Repositories
                         .ToList(),
                         Genres = f.idgenres
                         .Select(g => new idDescriptionDTO { Id = g.idgenre, description = g.description ?? "S/D" })
-                        .ToList(),
-                    }).OrderBy(f => f.FilmName).ToList();
+                        .ToList()
+                    })
+                    .OrderBy(f => f.FilmName)
+                    .ToList();
         }
         public FilmDto GetFilmById(int id)
         {
@@ -53,6 +57,8 @@ namespace Inventory.Infrastructure.Repositories
             var film = _dbContext.Films
                    .Include(f => f.idcountries)
                    .Include(f => f.idgenres)
+                   .Include(f => f.iddirected)
+                   .AsSplitQuery()
                    .Where(f => f.idfilm == id)
                    .Select(f => new FilmDto                   
                    {
@@ -69,7 +75,7 @@ namespace Inventory.Infrastructure.Repositories
                        .ToList(),
                        Genres = f.idgenres
                        .Select(g => new idDescriptionDTO { Id = g.idgenre, description = g.description ?? "S/D" })
-                       .ToList(),
+                       .ToList()
                    }).FirstOrDefault();
             if(film == null)
             {
@@ -101,9 +107,9 @@ namespace Inventory.Infrastructure.Repositories
             };
 
             _dbContext.Films.Add(film);
-            _dbContext.SaveChanges(); // EF Core guarda Film y llena automáticamente las tablas intermedias
+            _dbContext.SaveChanges();
 
-            // Opcional: devolver FilmDto
+            // Devolver FilmDto
             return new FilmDto
             {
                 Idfilm = film.idfilm,

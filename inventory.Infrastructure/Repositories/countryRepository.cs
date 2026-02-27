@@ -28,6 +28,7 @@ namespace Inventory.Infrastructure.Repositories
                 .Include(c => c.idcontinentNavigation)
                 .Include(c => c.idfilms)
                 .Include(c => c.idpeople)
+                .AsSplitQuery()
                 .Select(c => new CountryDto
                 {
                     Idcountry = c.idcountry,
@@ -35,7 +36,9 @@ namespace Inventory.Infrastructure.Repositories
                     Continent = c.idcontinentNavigation == null ? null : new idDescriptionDTO { Id = c.idcontinentNavigation.idcontinent, description = c.idcontinentNavigation.continentname },
                     TotalFilm = c.idfilms.Count,
                     TotalPerson = c.idpeople.Count
-                }).OrderBy(c => c.CountryName).ToList();
+                })
+                .OrderBy(c => c.CountryName)
+                .ToList();
         }
 
         public CountryDto GetCountryById(int id)
@@ -45,6 +48,7 @@ namespace Inventory.Infrastructure.Repositories
                 .Include(c => c.idcontinentNavigation)
                 .Include(c => c.idfilms)
                 .Include(c => c.idpeople)
+                .AsSplitQuery()
                 .Where(c => c.idcountry == id)
                 .Select(c => new CountryDto
                 {
