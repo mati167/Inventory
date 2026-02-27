@@ -47,6 +47,36 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
+    // Configurar CORS según el entorno
+    builder.Services.AddCors(options =>
+    {
+        if (builder.Environment.IsDevelopment())
+        {
+            // Desarrollo: Permitir todo
+            options.AddPolicy("AllowAll", policy =>
+            {
+                policy.AllowAnyOrigin()
+                      .AllowAnyMethod()
+                      .AllowAnyHeader();
+            });
+        }
+        else
+        {
+            // Producción: Solo Render y localhost
+            options.AddPolicy("AllowAll", policy =>
+            {
+                policy.WithOrigins(
+                    "https://films-app-2klz.onrender.com",
+                    "https://films-app-2klz.onrender.com/",
+                    "http://localhost:4351",
+                    "http://localhost:3000")
+                      .AllowAnyMethod()
+                      .AllowAnyHeader()
+                      .AllowCredentials();
+            });
+        }
+    });
+
 
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -72,6 +102,9 @@ try
     }
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    // Usar CORS
+    app.UseCors("AllowAll");
 
     var foldernamePublish = Directory.GetCurrentDirectory().Substring(Directory.GetCurrentDirectory().LastIndexOf('\\') + 1);
 
