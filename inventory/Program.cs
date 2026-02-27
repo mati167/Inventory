@@ -10,6 +10,8 @@ using Microsoft.Extensions.Options;
 using Inventory.Core.Interfaces.Services;
 using Inventory.Core.Interfaces.Repository;
 using Inventory.Core.Services;
+using Inventory.Core.Interfaces.Gateway;
+using Inventory.Infrastructure.Gateway;
 
 // Crear carpeta de logs si no existe
 string logPath = @"C:\LOGS";
@@ -47,6 +49,9 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
+    // Registrar HttpClientFactory para APIs externas
+    builder.Services.AddHttpClient();
+
     // Configurar CORS según el entorno
     builder.Services.AddCors(options =>
     {
@@ -83,6 +88,7 @@ try
     builder.Services.AddDbContext<DatabaseContext>(options =>
         options.UseNpgsql(connectionString));
 
+    // Registrar servicios
     builder.Services.AddTransient<IFilmService, FilmService>();
     builder.Services.AddTransient<IFilmRepository, filmRepository>();
     builder.Services.AddTransient<IpersonService, personService>();
@@ -91,6 +97,9 @@ try
     builder.Services.AddTransient<ICountryRepository, countryRepository>();
     builder.Services.AddTransient<IGenreService, genreService>();
     builder.Services.AddTransient<IGenreRepository, genreRepository>();
+
+    // Registrar Gateway
+    builder.Services.AddTransient<IimdbGateway, imdbGateway>();
 
     var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
     builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
