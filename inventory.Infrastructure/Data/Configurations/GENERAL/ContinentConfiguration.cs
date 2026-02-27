@@ -13,12 +13,12 @@ namespace Inventory.Infrastructure.Data.Configurations.GENERAL
     {
         public void Configure(EntityTypeBuilder<Continent> entity)
         {
-            entity.HasKey(e => e.Idcontinent).HasName("PK_continente");
+            entity.HasKey(e => e.idcontinent).HasName("PK_continente");
 
-            entity.ToTable("Continent");
+            entity.ToTable("continent");
 
-            entity.Property(e => e.Idcontinent).HasColumnName("IDContinent");
-            entity.Property(e => e.ContinentName)
+            entity.Property(e => e.idcontinent).HasColumnName("idcontinent");
+            entity.Property(e => e.continentname)
                 .HasMaxLength(45)
                 .IsUnicode(false);
         }

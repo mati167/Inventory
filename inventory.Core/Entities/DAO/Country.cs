@@ -5,15 +5,15 @@ namespace Inventory.Core.Entities.DAO;
 
 public partial class Country
 {
-    public int Idcountry { get; set; }
+    public int idcountry { get; set; }
 
-    public string CountryName { get; set; } = null!;
+    public string countryname { get; set; } = null!;
 
-    public int? Idcontinent { get; set; }
+    public int? idcontinent { get; set; }
 
-    public virtual Continent? IdcontinentNavigation { get; set; }
+    public virtual Continent? idcontinentNavigation { get; set; }
 
-    public virtual ICollection<Film> Idfilms { get; set; } = new List<Film>();
+    public virtual ICollection<Film> idfilms { get; set; } = new List<Film>();
 
-    public virtual ICollection<Person> Idpeople { get; set; } = new List<Person>();
+    public virtual ICollection<Person> idpeople { get; set; } = new List<Person>();
 }

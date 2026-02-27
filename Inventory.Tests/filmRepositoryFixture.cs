@@ -33,21 +33,21 @@ namespace Inventory.Tests
 
         private static void SeedData(DatabaseContext context)
         {
-            var country = new Country { Idcountry = 1, CountryName = "Argentina" };
-            var genre = new Genre { Idgenre = 1, Description = "Drama" };
-            var director = new Person { Idpersona = 1, Name = "Juan", LastName = "Perez" };
-            var actor = new Person { Idpersona = 2, Name = "Ana", LastName = "Lopez" };
+            var country = new Country { idcountry = 1, countryname = "Argentina" };
+            var genre = new Genre { idgenre = 1, description = "Drama" };
+            var director = new Person { idpersona = 1, name = "Juan", lastname = "Perez" };
+            var actor = new Person { idpersona = 2, name = "Ana", lastname = "Lopez" };
 
             var film = new Film
             {
-                Idfilm = 1,
-                FilmName = "El Secreto de Sus Ojos",
-                Year = 2009,
-                Duration = TimeOnly.Parse("02:10"),
-                Idcountries = new List<Country> { country },
-                Idgenres = new List<Genre> { genre },
-                idDirected = new List<Person> { director },
-                idActed = new List<Person> { actor }
+                idfilm = 1,
+                filmname = "El Secreto de Sus Ojos",
+                year = 2009,
+                duration = TimeOnly.Parse("02:10"),
+                idcountries = new List<Country> { country },
+                idgenres = new List<Genre> { genre },
+                iddirected = new List<Person> { director },
+                idacted = new List<Person> { actor }
             };
 
             context.Countries.Add(country);

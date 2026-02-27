@@ -13,18 +13,18 @@ namespace Inventory.Infrastructure.Data.Configurations.GENERAL
     {
         public void Configure(EntityTypeBuilder<Country> entity)
         {
-            entity.HasKey(e => e.Idcountry).HasName("PK_pais");
+            entity.HasKey(e => e.idcountry).HasName("PK_pais");
 
-            entity.ToTable("Country");
+            entity.ToTable("country");
 
-            entity.Property(e => e.Idcountry).HasColumnName("IDCountry");
-            entity.Property(e => e.CountryName)
+            entity.Property(e => e.idcountry).HasColumnName("idcountry");
+            entity.Property(e => e.countryname)
                 .HasMaxLength(30)
                 .IsUnicode(false);
-            entity.Property(e => e.Idcontinent).HasColumnName("IDContinent");
+            entity.Property(e => e.idcontinent).HasColumnName("idcontinent");
 
-            entity.HasOne(d => d.IdcontinentNavigation).WithMany(p => p.Countries)
-                .HasForeignKey(d => d.Idcontinent)
+            entity.HasOne(d => d.idcontinentNavigation).WithMany(p => p.countries)
+                .HasForeignKey(d => d.idcontinent)
                 .HasConstraintName("PK_pais_continente");
         }
     }

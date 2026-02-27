@@ -5,9 +5,9 @@ namespace Inventory.Core.Entities.DAO;
 
 public partial class Continent
 {
-    public int Idcontinent { get; set; }
+    public int idcontinent { get; set; }
 
-    public string ContinentName { get; set; } = null!;
+    public string continentname { get; set; } = null!;
 
-    public virtual ICollection<Country> Countries { get; set; } = new List<Country>();
+    public virtual ICollection<Country> countries { get; set; } = new List<Country>();
 }

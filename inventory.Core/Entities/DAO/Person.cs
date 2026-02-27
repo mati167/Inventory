@@ -5,11 +5,11 @@ namespace Inventory.Core.Entities.DAO;
 
 public partial class Person
 {
-    public int Idpersona { get; set; }
+    public int idpersona { get; set; }
 
-    public string? Name { get; set; }
+    public string? name { get; set; }
 
-    public string? LastName { get; set; }
+    public string? lastname { get; set; }
 
     public virtual ICollection<Comic> ComicArtistNavigations { get; set; } = new List<Comic>();
 

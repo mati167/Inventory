@@ -13,37 +13,37 @@ namespace Inventory.Infrastructure.Data.Configurations.GENERAL
     {
         public void Configure(EntityTypeBuilder<Person> entity)
         {
-            entity.HasKey(e => e.Idpersona).HasName("PK_persona");
+            entity.HasKey(e => e.idpersona).HasName("PK_persona");
 
-            entity.ToTable("Person");
+            entity.ToTable("person");
 
-            entity.Property(e => e.Idpersona)
+            entity.Property(e => e.idpersona)
                 .ValueGeneratedNever()
-                .HasColumnName("IDPersona");
-            entity.Property(e => e.LastName)
+                .HasColumnName("idpersona");
+            entity.Property(e => e.lastname)
                 .HasMaxLength(45)
                 .IsUnicode(false);
-            entity.Property(e => e.Name)
+            entity.Property(e => e.name)
                 .HasMaxLength(45)
                 .IsUnicode(false);
 
-            entity.HasMany(d => d.Idcountries).WithMany(p => p.Idpeople)
+            entity.HasMany(d => d.Idcountries).WithMany(p => p.idpeople)
                 .UsingEntity<Dictionary<string, object>>(
-                    "Nacionality",
+                    "nacionality",
                     r => r.HasOne<Country>().WithMany()
-                        .HasForeignKey("Idcountry")
+                        .HasForeignKey("idcountry")
                         .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("FK_nacionalidad_pais"),
                     l => l.HasOne<Person>().WithMany()
-                        .HasForeignKey("Idperson")
+                        .HasForeignKey("idperson")
                         .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("FK_nacionalidad_persona"),
                     j =>
                     {
-                        j.HasKey("Idperson", "Idcountry").HasName("PK_nacionalidad");
-                        j.ToTable("Nacionality");
-                        j.IndexerProperty<int>("Idperson").HasColumnName("IDPerson");
-                        j.IndexerProperty<int>("Idcountry").HasColumnName("IDCountry");
+                        j.HasKey("idperson", "idcountry").HasName("PK_nacionalidad");
+                        j.ToTable("nacionality");
+                        j.IndexerProperty<int>("idperson").HasColumnName("idperson");
+                        j.IndexerProperty<int>("idcountry").HasColumnName("idcountry");
                     });
         }
     }

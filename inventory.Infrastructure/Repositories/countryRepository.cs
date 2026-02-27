@@ -25,16 +25,16 @@ namespace Inventory.Infrastructure.Repositories
         {
             _logger.LogTrace("Se obtuvieron los Countries");
             return _dbContext.Countries
-                .Include(c => c.IdcontinentNavigation)
-                .Include(c => c.Idfilms)
-                .Include(c => c.Idpeople)
+                .Include(c => c.idcontinentNavigation)
+                .Include(c => c.idfilms)
+                .Include(c => c.idpeople)
                 .Select(c => new CountryDto
                 {
-                    Idcountry = c.Idcountry,
-                    CountryName = c.CountryName,
-                    Continent = c.IdcontinentNavigation == null ? null : new idDescriptionDTO { Id = c.IdcontinentNavigation.Idcontinent, description = c.IdcontinentNavigation.ContinentName },
-                    TotalFilm = c.Idfilms.Count,
-                    TotalPerson = c.Idpeople.Count
+                    Idcountry = c.idcountry,
+                    CountryName = c.countryname,
+                    Continent = c.idcontinentNavigation == null ? null : new idDescriptionDTO { Id = c.idcontinentNavigation.idcontinent, description = c.idcontinentNavigation.continentname },
+                    TotalFilm = c.idfilms.Count,
+                    TotalPerson = c.idpeople.Count
                 }).OrderBy(c => c.CountryName).ToList();
         }
 
@@ -42,17 +42,17 @@ namespace Inventory.Infrastructure.Repositories
         {
             _logger.LogTrace("Se obtuvo el Country");
             var country = _dbContext.Countries
-                .Include(c => c.IdcontinentNavigation)
-                .Include(c => c.Idfilms)
-                .Include(c => c.Idpeople)
-                .Where(c => c.Idcountry == id)
+                .Include(c => c.idcontinentNavigation)
+                .Include(c => c.idfilms)
+                .Include(c => c.idpeople)
+                .Where(c => c.idcountry == id)
                 .Select(c => new CountryDto
                 {
-                    Idcountry = c.Idcountry,
-                    CountryName = c.CountryName,
-                    Continent = c.IdcontinentNavigation == null ? null : new idDescriptionDTO { Id = c.IdcontinentNavigation.Idcontinent, description = c.IdcontinentNavigation.ContinentName },
-                    TotalFilm = c.Idfilms.Count,
-                    TotalPerson = c.Idpeople.Count
+                    Idcountry = c.idcountry,
+                    CountryName = c.countryname,
+                    Continent = c.idcontinentNavigation == null ? null : new idDescriptionDTO { Id = c.idcontinentNavigation.idcontinent, description = c.idcontinentNavigation.continentname },
+                    TotalFilm = c.idfilms.Count,
+                    TotalPerson = c.idpeople.Count
                 }).FirstOrDefault();
 
             if (country == null)
@@ -65,8 +65,8 @@ namespace Inventory.Infrastructure.Repositories
         {
             var country = new Country
             {
-                CountryName = dto.CountryName,
-                Idcontinent = dto.Idcontinent
+                countryname = dto.CountryName,
+                idcontinent = dto.Idcontinent
             };
 
             _dbContext.Countries.Add(country);
@@ -74,9 +74,9 @@ namespace Inventory.Infrastructure.Repositories
 
             return new CountryDto
             {
-                Idcountry = country.Idcountry,
-                CountryName = country.CountryName,
-                Continent = country.Idcontinent == null ? null : _dbContext.Continents.Where(ct => ct.Idcontinent == country.Idcontinent).Select(ct => new idDescriptionDTO { Id = ct.Idcontinent, description = ct.ContinentName }).FirstOrDefault(),
+                Idcountry = country.idcountry,
+                CountryName = country.countryname,
+                Continent = country.idcontinent == null ? null : _dbContext.Continents.Where(ct => ct.idcontinent == country.idcontinent).Select(ct => new idDescriptionDTO { Id = ct.idcontinent, description = ct.continentname }).FirstOrDefault(),
                 TotalFilm = 0,
                 TotalPerson = 0
             };
@@ -85,24 +85,24 @@ namespace Inventory.Infrastructure.Repositories
         public CountryDto updateCountry(updateCountryDto dto)
         {
             var country = _dbContext.Countries
-                .Include(c => c.Idfilms)
-                .Include(c => c.Idpeople)
-                .FirstOrDefault(c => c.Idcountry == dto.Idcountry);
+                .Include(c => c.idfilms)
+                .Include(c => c.idpeople)
+                .FirstOrDefault(c => c.idcountry == dto.Idcountry);
             if (country == null)
                 throw new Exception("No se encontro el country");
 
-            country.CountryName = dto.CountryName;
-            country.Idcontinent = dto.Idcontinent;
+            country.countryname = dto.CountryName;
+            country.idcontinent = dto.Idcontinent;
 
             _dbContext.SaveChanges();
 
             return new CountryDto
             {
-                Idcountry = country.Idcountry,
-                CountryName = country.CountryName,
-                Continent = country.Idcontinent == null ? null : _dbContext.Continents.Where(ct => ct.Idcontinent == country.Idcontinent).Select(ct => new idDescriptionDTO { Id = ct.Idcontinent, description = ct.ContinentName }).FirstOrDefault(),
-                TotalFilm = country.Idfilms.Count,
-                TotalPerson = country.Idpeople.Count
+                Idcountry = country.idcountry,
+                CountryName = country.countryname,
+                Continent = country.idcontinent == null ? null : _dbContext.Continents.Where(ct => ct.idcontinent == country.idcontinent).Select(ct => new idDescriptionDTO { Id = ct.idcontinent, description = ct.continentname }).FirstOrDefault(),
+                TotalFilm = country.idfilms.Count,
+                TotalPerson = country.idpeople.Count
             };
         }
     }

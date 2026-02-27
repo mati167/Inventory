@@ -35,7 +35,7 @@ namespace Inventory.Tests.Repositories
             // Arrange
             using var context = CreateContext();
 
-            var country = new Country { Idcountry = 1, CountryName = "Argentina" };
+            var country = new Country { idcountry = 1, countryname = "Argentina" };
             context.Countries.Add(country);
             context.SaveChanges();
 
@@ -63,12 +63,12 @@ namespace Inventory.Tests.Repositories
         {
             using var context = CreateContext();
 
-            var country = new Country { Idcountry = 1, CountryName = "Chile" };
+            var country = new Country { idcountry = 1, countryname = "Chile" };
             var person = new Person
             {
-                Idpersona = 10,
-                Name = "Pedro",
-                LastName = "Gómez",
+                idpersona = 10,
+                name = "Pedro",
+                lastname = "Gómez",
                 Idcountries = new List<Country> { country }
             };
             context.Countries.Add(country);
@@ -102,9 +102,9 @@ namespace Inventory.Tests.Repositories
         {
             using var context = CreateContext();
 
-            var country = new Country { Idcountry = 1, CountryName = "Uruguay" };
-            var person1 = new Person { Idpersona = 1, Name = "Ana", LastName = "Zapata", Idcountries = new List<Country> { country } };
-            var person2 = new Person { Idpersona = 2, Name = "Luis", LastName = "Alvarez", Idcountries = new List<Country> { country } };
+            var country = new Country { idcountry = 1, countryname = "Uruguay" };
+            var person1 = new Person { idpersona = 1, name = "Ana", lastname = "Zapata", Idcountries = new List<Country> { country } };
+            var person2 = new Person { idpersona = 2, name = "Luis", lastname = "Alvarez", Idcountries = new List<Country> { country } };
 
             context.Countries.Add(country);
             context.Person.AddRange(person1, person2);
@@ -125,14 +125,14 @@ namespace Inventory.Tests.Repositories
         {
             using var context = CreateContext();
 
-            var country1 = new Country { Idcountry = 1, CountryName = "Argentina" };
-            var country2 = new Country { Idcountry = 2, CountryName = "Brasil" };
+            var country1 = new Country { idcountry = 1, countryname = "Argentina" };
+            var country2 = new Country { idcountry = 2, countryname = "Brasil" };
 
             var person = new Person
             {
-                Idpersona = 1,
-                Name = "Sofia",
-                LastName = "Martinez",
+                idpersona = 1,
+                name = "Sofia",
+                lastname = "Martinez",
                 Idcountries = new List<Country> { country1 }
             };
 
@@ -184,8 +184,8 @@ namespace Inventory.Tests.Repositories
             // Arrange
             using var context = CreateContext();
 
-            var country1 = new Country { Idcountry = 1, CountryName = "Argentina" };
-            var country2 = new Country { Idcountry = 2, CountryName = "Chile" };
+            var country1 = new Country { idcountry = 1, countryname = "Argentina" };
+            var country2 = new Country { idcountry = 2, countryname = "Chile" };
             context.Countries.AddRange(country1, country2);
             context.SaveChanges();
 
@@ -216,7 +216,7 @@ namespace Inventory.Tests.Repositories
             // Arrange
             using var context = CreateContext();
 
-            var country = new Country { Idcountry = 1, CountryName = "España" };
+            var country = new Country { idcountry = 1, countryname = "España" };
             context.Countries.Add(country);
             context.SaveChanges();
 
@@ -242,12 +242,12 @@ namespace Inventory.Tests.Repositories
             // Arrange
             using var context = CreateContext();
 
-            var country = new Country { Idcountry = 1, CountryName = "México" };
+            var country = new Country { idcountry = 1, countryname = "México" };
             var person = new Person
             {
-                Idpersona = 5,
-                Name = "Roberto",
-                LastName = "Fernández",
+                idpersona = 5,
+                name = "Roberto",
+                lastname = "Fernández",
                 Idcountries = new List<Country> { country },
                 Idfilms = new List<Film>(),
                 IdfilmsNavigation = new List<Film>()
@@ -286,10 +286,10 @@ namespace Inventory.Tests.Repositories
             // Arrange
             using var context = CreateContext();
 
-            var country = new Country { Idcountry = 1, CountryName = "Perú" };
-            var person1 = new Person { Idpersona = 1, Name = "Juan", LastName = "Zorro", Idcountries = new List<Country> { country } };
-            var person2 = new Person { Idpersona = 2, Name = "María", LastName = "Antúnez", Idcountries = new List<Country> { country } };
-            var person3 = new Person { Idpersona = 3, Name = "Pablo", LastName = "Morales", Idcountries = new List<Country> { country } };
+            var country = new Country { idcountry = 1, countryname = "Perú" };
+            var person1 = new Person { idpersona = 1, name = "Juan", lastname = "Zorro", Idcountries = new List<Country> { country } };
+            var person2 = new Person { idpersona = 2, name = "María", lastname = "Antúnez", Idcountries = new List<Country> { country } };
+            var person3 = new Person { idpersona = 3, name = "Pablo", lastname = "Morales", Idcountries = new List<Country> { country } };
 
             context.Countries.Add(country);
             context.Person.AddRange(person1, person2, person3);
@@ -313,15 +313,15 @@ namespace Inventory.Tests.Repositories
             // Arrange
             using var context = CreateContext();
 
-            var country1 = new Country { Idcountry = 1, CountryName = "Portugal" };
-            var country2 = new Country { Idcountry = 2, CountryName = "Italia" };
-            var country3 = new Country { Idcountry = 3, CountryName = "Francia" };
+            var country1 = new Country { idcountry = 1, countryname = "Portugal" };
+            var country2 = new Country { idcountry = 2, countryname = "Italia" };
+            var country3 = new Country { idcountry = 3, countryname = "Francia" };
 
             var person = new Person
             {
-                Idpersona = 2,
-                Name = "Alessandro",
-                LastName = "Rossi",
+                idpersona = 2,
+                name = "Alessandro",
+                lastname = "Rossi",
                 Idcountries = new List<Country> { country1, country2 }
             };
 
@@ -353,12 +353,12 @@ namespace Inventory.Tests.Repositories
             // Arrange
             using var context = CreateContext();
 
-            var country = new Country { Idcountry = 1, CountryName = "Grecia" };
+            var country = new Country { idcountry = 1, countryname = "Grecia" };
             var person = new Person
             {
-                Idpersona = 3,
-                Name = "Nicolás",
-                LastName = "Papadopoulos",
+                idpersona = 3,
+                name = "Nicolás",
+                lastname = "Papadopoulos",
                 Idcountries = new List<Country> { country }
             };
 
@@ -391,14 +391,14 @@ namespace Inventory.Tests.Repositories
             // Arrange
             using var context = CreateContext();
 
-            var country1 = new Country { Idcountry = 1, CountryName = "Suecia" };
-            var country2 = new Country { Idcountry = 2, CountryName = "Noruega" };
+            var country1 = new Country { idcountry = 1, countryname = "Suecia" };
+            var country2 = new Country { idcountry = 2, countryname = "Noruega" };
 
             var person = new Person
             {
-                Idpersona = 4,
-                Name = "Ingrid",
-                LastName = "Svensson",
+                idpersona = 4,
+                name = "Ingrid",
+                lastname = "Svensson",
                 Idcountries = new List<Country> { country1 },
                 Idfilms = new List<Film>(),
                 IdfilmsNavigation = new List<Film>()
@@ -431,7 +431,7 @@ namespace Inventory.Tests.Repositories
             // Arrange
             using var context = CreateContext();
 
-            var country = new Country { Idcountry = 1, CountryName = "Canadá" };
+            var country = new Country { idcountry = 1, countryname = "Canadá" };
             context.Countries.Add(country);
             context.SaveChanges();
 
@@ -462,15 +462,15 @@ namespace Inventory.Tests.Repositories
             // Arrange
             using var context = CreateContext();
 
-            var country1 = new Country { Idcountry = 1, CountryName = "Suiza" };
-            var country2 = new Country { Idcountry = 2, CountryName = "Austria" };
-            var country3 = new Country { Idcountry = 3, CountryName = "Alemania" };
+            var country1 = new Country { idcountry = 1, countryname = "Suiza" };
+            var country2 = new Country { idcountry = 2, countryname = "Austria" };
+            var country3 = new Country { idcountry = 3, countryname = "Alemania" };
 
             var person = new Person
             {
-                Idpersona = 10,
-                Name = "Hans",
-                LastName = "Mueller",
+                idpersona = 10,
+                name = "Hans",
+                lastname = "Mueller",
                 Idcountries = new List<Country> { country1, country2, country3 }
             };
 

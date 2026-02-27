@@ -53,18 +53,6 @@ try
     builder.Services.AddDbContext<DatabaseContext>(options =>
         options.UseNpgsql(connectionString));
 
-
-    //builder.Services.AddDbContext<DatabaseContext>(options =>
-    //    options.UseSqlServer(
-    //        builder.Configuration.GetConnectionString("DefaultConnection"),
-    //        sqlServerOptionsAction: sqlOptions =>
-    //        {
-    //            sqlOptions.EnableRetryOnFailure(
-    //                maxRetryCount: 5,
-    //                maxRetryDelay: TimeSpan.FromSeconds(10),
-    //                errorNumbersToAdd: null);
-    //        }));
-
     builder.Services.AddTransient<IFilmService, FilmService>();
     builder.Services.AddTransient<IFilmRepository, filmRepository>();
     builder.Services.AddTransient<IpersonService, personService>();

@@ -13,12 +13,12 @@ namespace Inventory.Infrastructure.Data.Configurations.GENERAL
     {
         public void Configure(EntityTypeBuilder<Genre> entity)
         {
-            entity.HasKey(e => e.Idgenre).HasName("PK_genero");
+            entity.HasKey(e => e.idgenre).HasName("PK_genero");
 
-            entity.ToTable("Genre");
+            entity.ToTable("genre");
 
-            entity.Property(e => e.Idgenre).HasColumnName("IDGenre");
-            entity.Property(e => e.Description)
+            entity.Property(e => e.idgenre).HasColumnName("idgenre");
+            entity.Property(e => e.description)
                 .HasMaxLength(25)
                 .IsUnicode(false);
         }

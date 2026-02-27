@@ -24,12 +24,12 @@ namespace Inventory.Infrastructure.Repositories
         {
             _logger.LogTrace("Se obtuvieron los Genres");
             return _dbContext.Genres
-                .Include(g => g.Idfilms)
+                .Include(g => g.idfilms)
                 .Select(g => new GenreDto
                 {
-                    Idgenre = g.Idgenre,
-                    Description = g.Description,
-                    TotalFilm = g.Idfilms.Count
+                    Idgenre = g.idgenre,
+                    Description = g.description,
+                    TotalFilm = g.idfilms.Count
                 }).OrderBy(g => g.Description).ToList();
         }
 
@@ -37,13 +37,13 @@ namespace Inventory.Infrastructure.Repositories
         {
             _logger.LogTrace("Se obtuvo el Genre");
             var genre = _dbContext.Genres
-                .Include(g => g.Idfilms)
-                .Where(g => g.Idgenre == id)
+                .Include(g => g.idfilms)
+                .Where(g => g.idgenre == id)
                 .Select(g => new GenreDto
                 {
-                    Idgenre = g.Idgenre,
-                    Description = g.Description,
-                    TotalFilm = g.Idfilms.Count
+                    Idgenre = g.idgenre,
+                    Description = g.description,
+                    TotalFilm = g.idfilms.Count
                 }).FirstOrDefault();
 
             if (genre == null)
@@ -56,7 +56,7 @@ namespace Inventory.Infrastructure.Repositories
         {
             var genre = new Genre
             {
-                Description = dto.Description
+                description = dto.Description
             };
 
             _dbContext.Genres.Add(genre);
@@ -64,8 +64,8 @@ namespace Inventory.Infrastructure.Repositories
 
             return new GenreDto
             {
-                Idgenre = genre.Idgenre,
-                Description = genre.Description,
+                Idgenre = genre.idgenre,
+                Description = genre.description,
                 TotalFilm = 0
             };
         }
@@ -73,20 +73,20 @@ namespace Inventory.Infrastructure.Repositories
         public GenreDto updateGenre(updateGenreDto dto)
         {
             var genre = _dbContext.Genres
-                .Include(g => g.Idfilms)
-                .FirstOrDefault(g => g.Idgenre == dto.Idgenre);
+                .Include(g => g.idfilms)
+                .FirstOrDefault(g => g.idgenre == dto.Idgenre);
             if (genre == null)
                 throw new Exception("No se encontro el genre");
 
-            genre.Description = dto.Description;
+            genre.description = dto.Description;
 
             _dbContext.SaveChanges();
 
             return new GenreDto
             {
-                Idgenre = genre.Idgenre,
-                Description = genre.Description,
-                TotalFilm = genre.Idfilms.Count
+                Idgenre = genre.idgenre,
+                Description = genre.description,
+                TotalFilm = genre.idfilms.Count
             };
         }
     }

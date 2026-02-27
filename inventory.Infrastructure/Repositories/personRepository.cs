@@ -27,13 +27,13 @@ namespace Inventory.Infrastructure.Repositories
         public personDTO addPerson(CreatePersonDTO dto)
         {
             // Traer las entidades relacionadas
-            var countries = _dbContext.Countries.Where(c => dto.Idcountries.Contains(c.Idcountry)).ToList();
+            var countries = _dbContext.Countries.Where(c => dto.Idcountries.Contains(c.idcountry)).ToList();
 
             // Crear la nueva persona
             var person = new Person
             {
-                Name = dto.Name,
-                LastName = dto.LastName,
+                name = dto.Name,
+                lastname = dto.LastName,
                 Idcountries = countries
             };
 
@@ -43,10 +43,10 @@ namespace Inventory.Infrastructure.Repositories
             // Opcional: devolver personDTO
             return new personDTO
             {
-                Idpersona = person.Idpersona,
-                Name = person.Name,
-                LastName = person.LastName,
-                Countries = person.Idcountries.Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName }).ToList(),
+                Idpersona = person.idpersona,
+                Name = person.name,
+                LastName = person.lastname,
+                Countries = person.Idcountries.Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname }).ToList(),
                 TotalFilm = 0
             };
         }
@@ -58,14 +58,14 @@ namespace Inventory.Infrastructure.Repositories
                     .Include(p => p.Idcountries)
                     .Include(p => p.Idfilms)
                     .Include(p => p.IdfilmsNavigation)
-                    .Where(p => p.Idpersona == id)
+                    .Where(p => p.idpersona == id)
                     .Select(p => new personDTO
                     {
-                        Idpersona = p.Idpersona,
-                        Name = p.Name,
-                        LastName = p.LastName,
+                        Idpersona = p.idpersona,
+                        Name = p.name,
+                        LastName = p.lastname,
                         Countries = p.Idcountries
-                        .Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName })
+                        .Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname })
                         .ToList(),
                         TotalFilm = (p.Idfilms.Count + p.IdfilmsNavigation.Count)
                     }).FirstOrDefault();
@@ -85,11 +85,11 @@ namespace Inventory.Infrastructure.Repositories
                     .Include(p => p.IdfilmsNavigation)
                     .Select(p => new personDTO
                     {
-                        Idpersona = p.Idpersona,
-                        Name = p.Name,
-                        LastName = p.LastName,
+                        Idpersona = p.idpersona,
+                        Name = p.name,
+                        LastName = p.lastname,
                         Countries = p.Idcountries
-                        .Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName })
+                        .Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname })
                         .ToList(),
                         TotalFilm = (p.Idfilms.Count + p.IdfilmsNavigation.Count)
                     }).OrderBy(p => p.LastName).ToList();
@@ -101,27 +101,27 @@ namespace Inventory.Infrastructure.Repositories
            .Include(p => p.Idcountries)
            .Include(p => p.Idfilms)
            .Include(p => p.IdfilmsNavigation)
-           .FirstOrDefault(p => p.Idpersona == dto.Idpersona);
+           .FirstOrDefault(p => p.idpersona == dto.Idpersona);
 
             if (person == null)
                 throw new Exception("No se encontro la persona");
 
             // Actualizar propiedades simples
-            person.Name = dto.Name;
-            person.LastName = dto.LastName;
+            person.name = dto.Name;
+            person.lastname = dto.LastName;
 
             // Actualizar relaciones N:N
-            person.Idcountries = _dbContext.Countries.Where(c => dto.Idcountries.Contains(c.Idcountry)).ToList();
+            person.Idcountries = _dbContext.Countries.Where(c => dto.Idcountries.Contains(c.idcountry)).ToList();
 
             _dbContext.SaveChanges();
 
             // Devolver DTO actualizado
             return new personDTO
             {
-                Idpersona = person.Idpersona,
-                Name = person.Name,
-                LastName = person.LastName,
-                Countries = person.Idcountries.Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName }).ToList(),
+                Idpersona = person.idpersona,
+                Name = person.name,
+                LastName = person.lastname,
+                Countries = person.Idcountries.Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname }).ToList(),
                 TotalFilm = (person.Idfilms.Count + person.IdfilmsNavigation.Count)
             };
         }

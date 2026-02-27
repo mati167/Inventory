@@ -27,23 +27,23 @@ namespace Inventory.Infrastructure.Repositories
         {
             _logger.LogTrace($"Se obtuvieron los Films");
             return _dbContext.Films
-                    .Include(f => f.Idcountries)
-                    .Include(f => f.Idgenres)
+                    .Include(f => f.idcountries)
+                    .Include(f => f.idgenres)
                     .Select(f => new FilmDto
                     {
-                        Idfilm = f.Idfilm,
-                        FilmName = f.FilmName,
-                        Year = f.Year,
-                        Duration = f.Duration,
-                        imdbID = f.imdbId,
-                        Directed = f.idDirected
-                        .Select(d => new idDescriptionDTO { Id = d.Idpersona, description = d.LastName + "," + d.Name })
+                        Idfilm = f.idfilm,
+                        FilmName = f.filmname,
+                        Year = f.year,
+                        Duration = f.duration,
+                        imdbID = f.imdbid,
+                        Directed = f.iddirected
+                        .Select(d => new idDescriptionDTO { Id = d.idpersona, description = d.lastname + "," + d.name })
                         .ToList(),
-                        Countries = f.Idcountries
-                        .Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName })
+                        Countries = f.idcountries
+                        .Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname })
                         .ToList(),
-                        Genres = f.Idgenres
-                        .Select(g => new idDescriptionDTO { Id = g.Idgenre, description = g.Description ?? "S/D" })
+                        Genres = f.idgenres
+                        .Select(g => new idDescriptionDTO { Id = g.idgenre, description = g.description ?? "S/D" })
                         .ToList(),
                     }).OrderBy(f => f.FilmName).ToList();
         }
@@ -51,24 +51,24 @@ namespace Inventory.Infrastructure.Repositories
         {
             _logger.LogTrace($"Se obtuvo el Film");
             var film = _dbContext.Films
-                   .Include(f => f.Idcountries)
-                   .Include(f => f.Idgenres)
-                   .Where(f => f.Idfilm == id)
+                   .Include(f => f.idcountries)
+                   .Include(f => f.idgenres)
+                   .Where(f => f.idfilm == id)
                    .Select(f => new FilmDto                   
                    {
-                       Idfilm = f.Idfilm,
-                       FilmName = f.FilmName,
-                       Year = f.Year,
-                       Duration = f.Duration,
-                       imdbID = f.imdbId,
-                       Directed = f.idDirected
-                       .Select(d => new idDescriptionDTO { Id = d.Idpersona, description = d.LastName + "," + d.Name })
+                       Idfilm = f.idfilm,
+                       FilmName = f.filmname,
+                       Year = f.year,
+                       Duration = f.duration,
+                       imdbID = f.imdbid,
+                       Directed = f.iddirected
+                       .Select(d => new idDescriptionDTO { Id = d.idpersona, description = d.lastname + "," + d.name })
                        .ToList(),
-                       Countries = f.Idcountries
-                       .Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName })
+                       Countries = f.idcountries
+                       .Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname })
                        .ToList(),
-                       Genres = f.Idgenres
-                       .Select(g => new idDescriptionDTO { Id = g.Idgenre, description = g.Description ?? "S/D" })
+                       Genres = f.idgenres
+                       .Select(g => new idDescriptionDTO { Id = g.idgenre, description = g.description ?? "S/D" })
                        .ToList(),
                    }).FirstOrDefault();
             if(film == null)
@@ -82,22 +82,22 @@ namespace Inventory.Infrastructure.Repositories
         public FilmDto addFilm(CreateFilmDto dto)
         {
             // Traer las entidades relacionadas
-            var countries = _dbContext.Countries.Where(c => dto.CountryIds.Contains(c.Idcountry)).ToList();
-            var genres = _dbContext.Genres.Where(g => dto.GenreIds.Contains(g.Idgenre)).ToList();
-            var peopleDirected = _dbContext.Person.Where(p => dto.DirectedIds.Contains(p.Idpersona)).ToList();
-            var peopleActed = _dbContext.Person.Where(p => dto.ActedIds.Contains(p.Idpersona)).ToList();
+            var countries = _dbContext.Countries.Where(c => dto.CountryIds.Contains(c.idcountry)).ToList();
+            var genres = _dbContext.Genres.Where(g => dto.GenreIds.Contains(g.idgenre)).ToList();
+            var peopleDirected = _dbContext.Person.Where(p => dto.DirectedIds.Contains(p.idpersona)).ToList();
+            var peopleActed = _dbContext.Person.Where(p => dto.ActedIds.Contains(p.idpersona)).ToList();
 
             // Crear la nueva película
             var film = new Film
             {
-                FilmName = dto.FilmName,
-                Year = dto.Year,
-                Duration = dto.Duration,
-                imdbId = dto.imdbID,
-                Idcountries = countries,
-                Idgenres = genres,
-                idDirected = peopleDirected,
-                idActed = peopleActed
+                filmname = dto.FilmName,
+                year = dto.Year,
+                duration = dto.Duration,
+                imdbid = dto.imdbID,
+                idcountries = countries,
+                idgenres = genres,
+                iddirected = peopleDirected,
+                idacted = peopleActed
             };
 
             _dbContext.Films.Add(film);
@@ -106,56 +106,56 @@ namespace Inventory.Infrastructure.Repositories
             // Opcional: devolver FilmDto
             return new FilmDto
             {
-                Idfilm = film.Idfilm,
-                FilmName = film.FilmName,
-                Year = film.Year,
-                Duration = film.Duration,
-                imdbID = film.imdbId,
-                Countries = film.Idcountries.Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName }).ToList(),
-                Genres = film.Idgenres.Select(g => new idDescriptionDTO { Id = g.Idgenre, description = g.Description ?? "S/D" }).ToList(),
-                Directed = film.idDirected.Select(p => new idDescriptionDTO { Id = p.Idpersona, description = p.LastName + "," + p.Name }).ToList(),
-                Acted = film.idActed.Select(p => new idDescriptionDTO { Id = p.Idpersona, description = p.LastName + "," + p.Name }).ToList()
+                Idfilm = film.idfilm,
+                FilmName = film.filmname,
+                Year = film.year,
+                Duration = film.duration,
+                imdbID = film.imdbid,
+                Countries = film.idcountries.Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname }).ToList(),
+                Genres = film.idgenres.Select(g => new idDescriptionDTO { Id = g.idgenre, description = g.description ?? "S/D" }).ToList(),
+                Directed = film.iddirected.Select(p => new idDescriptionDTO { Id = p.idpersona, description = p.lastname + "," + p.name }).ToList(),
+                Acted = film.idacted.Select(p => new idDescriptionDTO { Id = p.idpersona, description = p.lastname + "," + p.name }).ToList()
             };
         }
 
         public FilmDto updateFilm(updateFilm dto)
         {
             var film = _dbContext.Films
-                       .Include(f => f.Idcountries)
-                       .Include(f => f.Idgenres)
-                       .Include(f => f.idDirected)
-                       .Include(f => f.idActed)
-                       .FirstOrDefault(f => f.Idfilm == dto.Idfilm);
+                       .Include(f => f.idcountries)
+                       .Include(f => f.idgenres)
+                       .Include(f => f.iddirected)
+                       .Include(f => f.idacted)
+                       .FirstOrDefault(f => f.idfilm == dto.Idfilm);
 
             if (film == null)
                 throw new Exception("No se encontro el film");
 
             // Actualizar propiedades simples
-            film.FilmName = dto.FilmName;
-            film.Year = dto.Year;
-            film.Duration = dto.Duration;
-            film.imdbId = dto.imdbID;
+            film.filmname = dto.FilmName;
+            film.year = dto.Year;
+            film.duration = dto.Duration;
+            film.imdbid = dto.imdbID;
 
             // Actualizar relaciones N:N
-            film.Idcountries = _dbContext.Countries.Where(c => dto.CountryIds.Contains(c.Idcountry)).ToList();
-            film.Idgenres = _dbContext.Genres.Where(g => dto.GenreIds.Contains(g.Idgenre)).ToList();
-            film.idDirected = _dbContext.Person.Where(p => dto.DirectedIds.Contains(p.Idpersona)).ToList();
-            film.idActed = _dbContext.Person.Where(p => dto.ActedIds.Contains(p.Idpersona)).ToList();
+            film.idcountries = _dbContext.Countries.Where(c => dto.CountryIds.Contains(c.idcountry)).ToList();
+            film.idgenres = _dbContext.Genres.Where(g => dto.GenreIds.Contains(g.idgenre)).ToList();
+            film.iddirected = _dbContext.Person.Where(p => dto.DirectedIds.Contains(p.idpersona)).ToList();
+            film.idacted = _dbContext.Person.Where(p => dto.ActedIds.Contains(p.idpersona)).ToList();
 
             _dbContext.SaveChanges();
 
             // Devolver DTO actualizado
             return new FilmDto
             {
-                Idfilm = film.Idfilm,
-                FilmName = film.FilmName,
-                Year = film.Year,
-                Duration = film.Duration,
-                imdbID = film.imdbId,
-                Countries = film.Idcountries.Select(c => new idDescriptionDTO { Id = c.Idcountry, description = c.CountryName }).ToList(),
-                Genres = film.Idgenres.Select(g => new idDescriptionDTO { Id = g.Idgenre, description = g.Description ?? "S/D" }).ToList(),
-                Directed = film.idDirected.Select(p => new idDescriptionDTO { Id = p.Idpersona, description = p.LastName + "," + p.Name }).ToList(),
-                Acted = film.idActed.Select(p => new idDescriptionDTO { Id = p.Idpersona, description = p.LastName + "," + p.Name }).ToList()
+                Idfilm = film.idfilm,
+                FilmName = film.filmname,
+                Year = film.year,
+                Duration = film.duration,
+                imdbID = film.imdbid,
+                Countries = film.idcountries.Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname }).ToList(),
+                Genres = film.idgenres.Select(g => new idDescriptionDTO { Id = g.idgenre, description = g.description ?? "S/D" }).ToList(),
+                Directed = film.iddirected.Select(p => new idDescriptionDTO { Id = p.idpersona, description = p.lastname + "," + p.name }).ToList(),
+                Acted = film.idacted.Select(p => new idDescriptionDTO { Id = p.idpersona, description = p.lastname + "," + p.name }).ToList()
             };
         }
     }

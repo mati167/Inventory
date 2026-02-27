@@ -5,9 +5,9 @@ namespace Inventory.Core.Entities.DAO;
 
 public partial class Genre
 {
-    public int Idgenre { get; set; }
+    public int idgenre { get; set; }
 
-    public string? Description { get; set; }
+    public string? description { get; set; }
 
-    public virtual ICollection<Film> Idfilms { get; set; } = new List<Film>();
+    public virtual ICollection<Film> idfilms { get; set; } = new List<Film>();
 }
