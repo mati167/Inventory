@@ -24,7 +24,7 @@ namespace Inventory.Core.Services
         }
         public personDTO addPerson(CreatePersonDTO dto)
         {
-            throw new NotImplementedException();
+            return _personRepository.addPerson(dto);
         }
 
         public personDTO GetPersonById(int id)
@@ -39,7 +39,7 @@ namespace Inventory.Core.Services
 
         public personDTO updatePerson(updatePersonDTO dto)
         {
-            throw new NotImplementedException();
+            return _personRepository.updatePerson(dto);
         }
     }
 }

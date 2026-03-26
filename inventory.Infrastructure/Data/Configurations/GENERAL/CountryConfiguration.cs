@@ -21,6 +21,9 @@ namespace Inventory.Infrastructure.Data.Configurations.GENERAL
             entity.Property(e => e.countryname)
                 .HasMaxLength(30)
                 .IsUnicode(false);
+            entity.Property(e => e.ISOCode)
+    .HasMaxLength(2)
+    .IsUnicode(false);
             entity.Property(e => e.idcontinent).HasColumnName("idcontinent");
 
             entity.HasOne(d => d.idcontinentNavigation).WithMany(p => p.countries)

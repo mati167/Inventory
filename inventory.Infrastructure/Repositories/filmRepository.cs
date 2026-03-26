@@ -91,7 +91,6 @@ namespace Inventory.Infrastructure.Repositories
             var countries = _dbContext.Countries.Where(c => dto.CountryIds.Contains(c.idcountry)).ToList();
             var genres = _dbContext.Genres.Where(g => dto.GenreIds.Contains(g.idgenre)).ToList();
             var peopleDirected = _dbContext.Person.Where(p => dto.DirectedIds.Contains(p.idpersona)).ToList();
-            var peopleActed = _dbContext.Person.Where(p => dto.ActedIds.Contains(p.idpersona)).ToList();
 
             // Crear la nueva película
             var film = new Film
@@ -102,8 +101,7 @@ namespace Inventory.Infrastructure.Repositories
                 imdbid = dto.imdbID,
                 idcountries = countries,
                 idgenres = genres,
-                iddirected = peopleDirected,
-                idacted = peopleActed
+                iddirected = peopleDirected
             };
 
             _dbContext.Films.Add(film);
@@ -120,7 +118,6 @@ namespace Inventory.Infrastructure.Repositories
                 Countries = film.idcountries.Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname }).ToList(),
                 Genres = film.idgenres.Select(g => new idDescriptionDTO { Id = g.idgenre, description = g.description ?? "S/D" }).ToList(),
                 Directed = film.iddirected.Select(p => new idDescriptionDTO { Id = p.idpersona, description = p.lastname + "," + p.name }).ToList(),
-                Acted = film.idacted.Select(p => new idDescriptionDTO { Id = p.idpersona, description = p.lastname + "," + p.name }).ToList()
             };
         }
 

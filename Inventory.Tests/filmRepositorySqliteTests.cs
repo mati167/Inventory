@@ -54,8 +54,7 @@ namespace Inventory.Tests
                 Duration = TimeOnly.Parse("02:00"),
                 CountryIds = new List<int> { 1 },
                 GenreIds = new List<int> { 1 },
-                DirectedIds = new List<int> { 1 },
-                ActedIds = new List<int> { 2 }
+                DirectedIds = new List<int> { 1 }
             };
 
             var result = _fixture.Repository.addFilm(dto);

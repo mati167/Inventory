@@ -1,4 +1,5 @@
 ﻿using Inventory.Core.Entities.DAO;
+using Inventory.Core.Entities.DTOs.Country;
 using Inventory.Core.Entities.DTOs.Film;
 using Inventory.Core.Entities.DTOs.General;
 using Inventory.Core.Entities.DTOs.Person;
@@ -46,7 +47,7 @@ namespace Inventory.Infrastructure.Repositories
                 Idpersona = person.idpersona,
                 Name = person.name,
                 LastName = person.lastname,
-                Countries = person.Idcountries.Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname }).ToList(),
+                Countries = person.Idcountries.Select(c => new idDesciptionCountryDTO { Id = c.idcountry, description = c.countryname, isoCode = c.ISOCode }).ToList(),
                 TotalFilm = 0
             };
         }
@@ -65,7 +66,7 @@ namespace Inventory.Infrastructure.Repositories
                         Name = p.name,
                         LastName = p.lastname,
                         Countries = p.Idcountries
-                        .Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname })
+                        .Select(c => new idDesciptionCountryDTO { Id = c.idcountry, description = c.countryname, isoCode = c.ISOCode })
                         .ToList(),
                         TotalFilm = (p.Idfilms.Count + p.IdfilmsNavigation.Count)
                     }).FirstOrDefault();
@@ -89,7 +90,7 @@ namespace Inventory.Infrastructure.Repositories
                         Name = p.name,
                         LastName = p.lastname,
                         Countries = p.Idcountries
-                        .Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname })
+                        .Select(c => new idDesciptionCountryDTO { Id = c.idcountry, description = c.countryname, isoCode = c.ISOCode })
                         .ToList(),
                         TotalFilm = (p.Idfilms.Count + p.IdfilmsNavigation.Count)
                     }).OrderBy(p => p.LastName).ToList();
@@ -121,7 +122,7 @@ namespace Inventory.Infrastructure.Repositories
                 Idpersona = person.idpersona,
                 Name = person.name,
                 LastName = person.lastname,
-                Countries = person.Idcountries.Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname }).ToList(),
+                Countries = person.Idcountries.Select(c => new idDesciptionCountryDTO { Id = c.idcountry, description = c.countryname, isoCode = c.ISOCode }).ToList(),
                 TotalFilm = (person.Idfilms.Count + person.IdfilmsNavigation.Count)
             };
         }
