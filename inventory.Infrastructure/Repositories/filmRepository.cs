@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Inventory.Core.Interfaces.Repository;
+using Inventory.Core.Entities.DTOs.Country;
 
 namespace Inventory.Infrastructure.Repositories
 {
@@ -42,7 +43,7 @@ namespace Inventory.Infrastructure.Repositories
                         .Select(d => new idDescriptionDTO { Id = d.idpersona, description = d.lastname + "," + d.name })
                         .ToList(),
                         Countries = f.idcountries
-                        .Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname })
+                        .Select(c => new idDesciptionCountryDTO { Id = c.idcountry, description = c.countryname, isoCode = c.ISOCode })
                         .ToList(),
                         Genres = f.idgenres
                         .Select(g => new idDescriptionDTO { Id = g.idgenre, description = g.description ?? "S/D" })
@@ -71,7 +72,7 @@ namespace Inventory.Infrastructure.Repositories
                        .Select(d => new idDescriptionDTO { Id = d.idpersona, description = d.lastname + "," + d.name })
                        .ToList(),
                        Countries = f.idcountries
-                       .Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname })
+                       .Select(c => new idDesciptionCountryDTO { Id = c.idcountry, description = c.countryname, isoCode = c.ISOCode })
                        .ToList(),
                        Genres = f.idgenres
                        .Select(g => new idDescriptionDTO { Id = g.idgenre, description = g.description ?? "S/D" })
@@ -115,7 +116,7 @@ namespace Inventory.Infrastructure.Repositories
                 Year = film.year,
                 Duration = film.duration,
                 imdbID = film.imdbid,
-                Countries = film.idcountries.Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname }).ToList(),
+                Countries = film.idcountries.Select(c => new idDesciptionCountryDTO { Id = c.idcountry, description = c.countryname, isoCode = c.ISOCode }).ToList(),
                 Genres = film.idgenres.Select(g => new idDescriptionDTO { Id = g.idgenre, description = g.description ?? "S/D" }).ToList(),
                 Directed = film.iddirected.Select(p => new idDescriptionDTO { Id = p.idpersona, description = p.lastname + "," + p.name }).ToList(),
             };
@@ -155,7 +156,7 @@ namespace Inventory.Infrastructure.Repositories
                 Year = film.year,
                 Duration = film.duration,
                 imdbID = film.imdbid,
-                Countries = film.idcountries.Select(c => new idDescriptionDTO { Id = c.idcountry, description = c.countryname }).ToList(),
+                Countries = film.idcountries.Select(c => new idDesciptionCountryDTO { Id = c.idcountry, description = c.countryname, isoCode = c.ISOCode }).ToList(),
                 Genres = film.idgenres.Select(g => new idDescriptionDTO { Id = g.idgenre, description = g.description ?? "S/D" }).ToList(),
                 Directed = film.iddirected.Select(p => new idDescriptionDTO { Id = p.idpersona, description = p.lastname + "," + p.name }).ToList(),
                 Acted = film.idacted.Select(p => new idDescriptionDTO { Id = p.idpersona, description = p.lastname + "," + p.name }).ToList()
