@@ -1,4 +1,5 @@
-﻿using Inventory.Core.Entities.DTOs.General;
+﻿using Inventory.Core.Entities.DTOs.Country;
+using Inventory.Core.Entities.DTOs.General;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Inventory.Core.Entities.DTOs.Film
         public string? imdbID { get; set; }
         public List<idDescriptionDTO> Directed { get; set; } = new();
         public List<idDescriptionDTO> Acted { get; set; } = new();
-        public List<idDescriptionDTO> Countries { get; set; } = new();
+        public List<idDesciptionCountryDTO> Countries { get; set; } = new();
         public List<idDescriptionDTO> Genres { get; set; } = new();
     }
 }
