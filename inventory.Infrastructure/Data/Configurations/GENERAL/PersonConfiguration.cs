@@ -18,7 +18,6 @@ namespace Inventory.Infrastructure.Data.Configurations.GENERAL
             entity.ToTable("person");
 
             entity.Property(e => e.idpersona)
-                .ValueGeneratedNever()
                 .HasColumnName("idpersona");
             entity.Property(e => e.lastname)
                 .HasMaxLength(45)
