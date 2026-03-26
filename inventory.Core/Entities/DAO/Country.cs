@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Inventory.Core.Entities.DAO;
 
@@ -10,6 +11,8 @@ public partial class Country
     public string countryname { get; set; } = null!;
 
     public int? idcontinent { get; set; }
+    [Column("isocode")]
+    public string? ISOCode { get; set; }
 
     public virtual Continent? idcontinentNavigation { get; set; }
 

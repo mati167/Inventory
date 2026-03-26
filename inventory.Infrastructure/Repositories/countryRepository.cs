@@ -35,7 +35,8 @@ namespace Inventory.Infrastructure.Repositories
                     CountryName = c.countryname,
                     Continent = c.idcontinentNavigation == null ? null : new idDescriptionDTO { Id = c.idcontinentNavigation.idcontinent, description = c.idcontinentNavigation.continentname },
                     TotalFilm = c.idfilms.Count,
-                    TotalPerson = c.idpeople.Count
+                    TotalPerson = c.idpeople.Count,
+                    isoCode = c.ISOCode
                 })
                 .OrderBy(c => c.CountryName)
                 .ToList();
@@ -56,7 +57,8 @@ namespace Inventory.Infrastructure.Repositories
                     CountryName = c.countryname,
                     Continent = c.idcontinentNavigation == null ? null : new idDescriptionDTO { Id = c.idcontinentNavigation.idcontinent, description = c.idcontinentNavigation.continentname },
                     TotalFilm = c.idfilms.Count,
-                    TotalPerson = c.idpeople.Count
+                    TotalPerson = c.idpeople.Count,
+                    isoCode = c.ISOCode
                 }).FirstOrDefault();
 
             if (country == null)
@@ -82,7 +84,8 @@ namespace Inventory.Infrastructure.Repositories
                 CountryName = country.countryname,
                 Continent = country.idcontinent == null ? null : _dbContext.Continents.Where(ct => ct.idcontinent == country.idcontinent).Select(ct => new idDescriptionDTO { Id = ct.idcontinent, description = ct.continentname }).FirstOrDefault(),
                 TotalFilm = 0,
-                TotalPerson = 0
+                TotalPerson = 0,
+                isoCode = country.ISOCode
             };
         }
 
@@ -106,7 +109,8 @@ namespace Inventory.Infrastructure.Repositories
                 CountryName = country.countryname,
                 Continent = country.idcontinent == null ? null : _dbContext.Continents.Where(ct => ct.idcontinent == country.idcontinent).Select(ct => new idDescriptionDTO { Id = ct.idcontinent, description = ct.continentname }).FirstOrDefault(),
                 TotalFilm = country.idfilms.Count,
-                TotalPerson = country.idpeople.Count
+                TotalPerson = country.idpeople.Count,
+                isoCode = country.ISOCode
             };
         }
     }

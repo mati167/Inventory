@@ -1,4 +1,5 @@
-﻿using Inventory.Core.Entities.DTOs.General;
+﻿using Inventory.Core.Entities.DTOs.Country;
+using Inventory.Core.Entities.DTOs.General;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Inventory.Core.Entities.DTOs.Person
         public string? Name { get; set; }
 
         public string? LastName { get; set; }
-        public List<idDescriptionDTO> Countries { get; set; } = new();
+        public List<idDesciptionCountryDTO> Countries { get; set; } = new();
         public int TotalFilm { get; set; }
     }
 }

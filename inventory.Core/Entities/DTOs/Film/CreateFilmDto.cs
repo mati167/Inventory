@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Inventory.Core.Entities.DTOs.Person;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Inventory.Core.Entities.DTOs.Film
         public List<int> CountryIds { get; set; } = new();
         public List<int> GenreIds { get; set; } = new();
         public List<int> DirectedIds { get; set; } = new();
-        public List<int> ActedIds { get; set; } = new();
+        //public List<CreatePersonDTO> DirectedIds { get; set; } = new();
     }
 
 }
