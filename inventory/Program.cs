@@ -97,6 +97,8 @@ try
     builder.Services.AddTransient<ICountryRepository, countryRepository>();
     builder.Services.AddTransient<IGenreService, genreService>();
     builder.Services.AddTransient<IGenreRepository, genreRepository>();
+    builder.Services.AddTransient<ILoginService, loginService>();
+    builder.Services.AddTransient<ILoginRepository, loginRepository>();
 
     // Registrar Gateway
     builder.Services.AddTransient<IimdbGateway, imdbGateway>();
