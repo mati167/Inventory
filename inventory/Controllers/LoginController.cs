@@ -19,7 +19,7 @@ namespace Inventory.Api.Controllers
             _log = log;
         }
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(loginResponse))]
-        [HttpGet("login")]
+        [HttpPost("login")]
         public IActionResult Login(loginDTO login)
         {
             return Ok(_loginService.LoginAsync(login));
