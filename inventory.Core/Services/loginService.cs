@@ -19,16 +19,20 @@ namespace Inventory.Core.Services
             _loginRepository = loginRepository;
             _log = logger;
         }
-        public async Task<bool> LoginAsync(loginDTO login)
+        public async Task<loginResponse> LoginAsync(loginDTO login)
         {
+            loginResponse respuesta = new loginResponse();
             try
             {
                 var res = await _loginRepository.getUsernameAsync(login.UserName);
                 if (res == null)
-                    return false;
+                {
+                    respuesta.response = false;
+                    return respuesta;
+                }
                 bool esValido = BCrypt.Net.BCrypt.Verify(login.Password, res.PasswordHash);
-
-                return esValido;
+                respuesta.response = esValido;
+                return respuesta;
             }
             catch (Exception ex)
             {
