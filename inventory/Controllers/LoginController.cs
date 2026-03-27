@@ -18,7 +18,7 @@ namespace Inventory.Api.Controllers
             _loginService = loginService;
             _log = log;
         }
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(bool))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(loginResponse))]
         [HttpGet("login")]
         public IActionResult Login(loginDTO login)
         {

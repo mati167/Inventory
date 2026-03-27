@@ -7,6 +7,6 @@ namespace Inventory.Core.Interfaces.Services
 {
     public interface ILoginService 
     {
-        Task<bool> LoginAsync(loginDTO login);
+        Task<loginResponse> LoginAsync(loginDTO login);
     }
 }
