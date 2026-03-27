@@ -14,7 +14,7 @@ using Inventory.Core.Interfaces.Gateway;
 using Inventory.Infrastructure.Gateway;
 
 // Crear carpeta de logs si no existe
-string logPath = @"C:\LOGS";
+string logPath = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
 if (!Directory.Exists(logPath))
 {
     try
@@ -42,6 +42,7 @@ try
     builder.Services.AddControllers()
            .AddJsonOptions(options =>
            {
+
                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
                options.JsonSerializerOptions.WriteIndented = true;
            });
@@ -141,6 +142,26 @@ try
             c.DefaultModelsExpandDepth(-1);
         });
     }
+    // Middleware para capturar el JSON que llega al API
+    app.Use(async (context, next) =>
+    {
+        // Solo loguear si es un POST o PUT (donde hay JSON)
+        if (context.Request.Method == "POST" || context.Request.Method == "PUT")
+        {
+            context.Request.EnableBuffering();
+
+            using (var reader = new StreamReader(context.Request.Body, System.Text.Encoding.UTF8, true, 1024, true))
+            {
+                var body = await reader.ReadToEndAsync();
+                // Usamos el logger de NLog que ya tienes definido
+                logger.Info($"📥 JSON RECIBIDO [{context.Request.Path}]: {body}");
+
+                // Importante: Reiniciar el stream para que el Controller pueda leerlo
+                context.Request.Body.Position = 0;
+            }
+        }
+        await next();
+    });
 
     app.UseAuthorization();
     app.MapControllers();
