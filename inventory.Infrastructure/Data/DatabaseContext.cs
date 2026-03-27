@@ -21,6 +21,7 @@ namespace Inventory.Infrastructure.Data
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
     : base(options)
         { }
+        public virtual DbSet<Administrator> Administrator { get; set; }
         public virtual DbSet<Book> Books { get; set; }
 
         public virtual DbSet<Comic> Comics { get; set; }
@@ -46,6 +47,7 @@ namespace Inventory.Infrastructure.Data
         public virtual DbSet<Size> Sizes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new AdministratorConfiguration());
             modelBuilder.ApplyConfiguration(new bookConfiguration());
             modelBuilder.ApplyConfiguration(new comicConfiguration());
             modelBuilder.ApplyConfiguration(new ContinentConfiguration());
