@@ -5,6 +5,7 @@ using Inventory.Core.Entities.DTOs.OMDb;
 using Microsoft.AspNetCore.Mvc;
 using Peliculas.Core.Services;
 using System.Net;
+using System.Text.Json;
 
 namespace peliculas.Api.Controllers
 {
@@ -73,6 +74,7 @@ namespace peliculas.Api.Controllers
         [HttpPost("addFilm")]
         public IActionResult addFilm(CreateFilmDto dto)
         {
+            _log.LogInformation("addFilm Body: ", JsonSerializer.Serialize(dto));
             return Ok(_filmService.addFilm(dto));
         }
 
