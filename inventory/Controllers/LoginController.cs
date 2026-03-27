@@ -22,7 +22,7 @@ namespace Inventory.Api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(loginDTO login)
         { 
-        var result = _loginService.LoginAsync(login);
+        var result = await _loginService.LoginAsync(login);
             return Ok(result);
         }
     }
