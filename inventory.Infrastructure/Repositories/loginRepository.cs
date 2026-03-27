@@ -19,10 +19,18 @@ namespace Inventory.Infrastructure.Repositories
             _dbContext = dbContext;
             _logger = logger;
         }
-        public Task<Administrator?> getUsernameAsync(string username)
+        public async Task<Administrator?> getUsernameAsync(string username)
         {
-            _logger.LogTrace("Se busca el user");
-            return _dbContext.Administrator.FirstOrDefaultAsync(a => a.Username == username);
+            try
+            {
+                _logger.LogTrace("Se busca el user");
+                return await _dbContext.Administrator.FirstOrDefaultAsync(a => a.Username == username);
+            }
+            catch(Exception e)
+            {
+                _logger.LogError("error al obtener usuario: " + e.Message);
+                return null;
+            }
         }
 
     }
