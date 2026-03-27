@@ -20,9 +20,10 @@ namespace Inventory.Api.Controllers
         }
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(loginResponse))]
         [HttpPost("login")]
-        public IActionResult Login(loginDTO login)
-        {
-            return Ok(_loginService.LoginAsync(login));
+        public async Task<IActionResult> Login(loginDTO login)
+        { 
+        var result = _loginService.LoginAsync(login);
+            return Ok(result);
         }
     }
 }
