@@ -5,5 +5,6 @@ namespace Inventory.Core.Entities.DTOs.Country
         public int Idcountry { get; set; }
         public string CountryName { get; set; } = null!;
         public int? Idcontinent { get; set; }
+        public string isoCode { get; set; }
     }
 }

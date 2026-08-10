@@ -101,6 +101,7 @@ namespace Inventory.Infrastructure.Repositories
 
             country.countryname = dto.CountryName;
             country.idcontinent = dto.Idcontinent;
+            country.ISOCode = dto.isoCode;
 
             _dbContext.SaveChanges();
 
