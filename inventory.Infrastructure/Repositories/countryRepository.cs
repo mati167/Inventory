@@ -72,7 +72,8 @@ namespace Inventory.Infrastructure.Repositories
             var country = new Country
             {
                 countryname = dto.CountryName,
-                idcontinent = dto.Idcontinent
+                idcontinent = dto.Idcontinent,
+                ISOCode = dto.isoCode
             };
 
             _dbContext.Countries.Add(country);
